@@ -10,8 +10,11 @@
 
 Si ce builder vous a aidé, merci de soutenir le développement :
 
-[![Lyggos](https://pay.lygosapp.com/$etsmeta)]
-[![En savoir plus](https://img.shields.io/badge/Sponsoring-Details-4CAF50?style=for-the-badge)](SUPPORT.md)
+[![Sponsor Lygos](https://img.shields.io/badge/Sponsor-Lygos-blue?style=for-the-badge)](https://pay.lygosapp.com/$etsmeta)
+![Version](https://img.shields.io/badge/version-1.1.171125-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Stars](https://img.shields.io/github/stars/METADIDOMIOFFICIEL/Metadidomi-Builder?style=social)
+![Issues](https://img.shields.io/github/issues/[METADIDOMIOFFICIEL/Metadidomi-BUILDER])
 
 Votre soutien permet de:
 - ✅ Développer de nouvelles fonctionnalités
