@@ -16,7 +16,36 @@ Si ce builder vous a aidé, merci de soutenir le développement :
 ![Stars](https://img.shields.io/github/stars/METADIDOMIOFFICIEL/Metadidomi-Builder?style=social)
 ![Issues](https://img.shields.io/github/issues/[METADIDOMIOFFICIEL/Metadidomi-BUILDER])
 
-Votre soutien permet de:
+---
+## 📑 Table des Matières
+
+1. **[À Propos](#-à-propos)** - Présentation générale
+2. **[Installation](#-installation)** - Mise en place
+3. **[Démarrage Rapide](#-démarrage-rapide)** - Premiers pas
+4. **[Configuration](#-configuration)** - Personnalisation
+5. **[Modes de Construction](#-modes-de-construction)** - Options de build
+6. **[Gestion des Dépendances](#-gestion-des-dépendances)** - Electron et Python
+7. **[Protection du Code](#-système-de-protection-avancé)** - Sécurité
+8. **[Packaging Python](#-packaging-dapplications-python)** - Applications Python
+9. **[Comparaison](#-comparaison-avec-electron-builder)** - vs electron-builder
+10. **[Roadmap](#-roadmap)** - Futures versions
+11. **[Support](#-support-et-contribution)** - Aide et contact
+
+---
+
+## 💝 À Propos
+
+Constructeur **professionnel** pour applications Electron et Python exigeant :
+- ✅ **Sécurité maximale** - Chiffrement AES-256, bytecode, obfuscation
+- ✅ **Builds reproductibles** - 100% déterministe et offline
+- ✅ **Customisation totale** - Contrôle complet du processus
+- ✅ **Zéro dépendances externes** - Tous les outils embarqués
+
+### ⭐ Soutenir le Projet
+
+Si ce builder vous a aidé, merci de soutenir le développement :
+
+Votre soutien permet de :
 - ✅ Développer de nouvelles fonctionnalités
 - ✅ Supporter macOS et Linux
 - ✅ Améliorer la documentation
@@ -24,39 +53,34 @@ Votre soutien permet de:
 
 ---
 
-Constructeur professionnel pour applications Electron, Python exigeant une **sécurité maximale**, des **builds reproductibles** et une **customisation totale**. avec des outils embarqués dans le dossier.
-
----
-
-## ⭐ Vous aimez ce projet ?
-
-N'hésitez pas à:
-- ⭐ **Mettre une star** sur GitHub
-- 🍴 **Forker** le projet
-- 🐛 **Signaler des bugs**
-- 💡 **Proposer des améliorations**
-- 💰 **[Soutenir financièrement](#-soutenir-le-projet)** le développement
-
----
-
 ## 🚀 Installation
-Toutes les dépendances essentielles pour les projets electron sont embarquées pour une construction offline !
-- NSIS : Inclus dans `build_tools/vendor/nsis/`
-- UPX : Inclus dans `build_tools/vendor/upx/`
-- 7-Zip : Inclus dans `build_tools/vendor/7zip-bin/`
-- Tous les modules npm : Inclus dans `build_tools/vendor/`
 
-### Dépendances minimales
-Seul `electron@^39.1.1` et Python resent est requis pour le développement. Installez-le une seule fois :
+### Dépendances Minimales
+
+**Pour le développement :** Seuls `electron@^39.1.1` et Python 3.11+ sont requis.
+
 ```powershell
 npm install
 ```
-### Architecture des modules embarqués
+# � INSTALLATION DES DÉPENDANCES VENDOR
+
+Si lors de l'installation le dossier `build_tools/vendor` n'est pas présent, suivez ces instructions :
+
+. Téléchargez le fichier `vendor.zip` depuis :
+  https://github.com/METADIDOMIOFFICIEL/Metadidomi-Builder/releases/download/1.3.171125/vendor.zip
+
+💡 **Suite** :
+Vous pouvez aussi extraire manuellement le contenu de `vendor.zip` dans le dossier `build_tools/vendor`.
+
+### Modules Embarqués - 100% Offline
+
+Toutes les dépendances essentielles sont incluses dans `build_tools/vendor/` :
+
 ```
 build_tools/vendor/
   ├── asar/                    # Packaging et archivage
-  ├── bytenode/                # Compilation JavaScript en bytecode V8
-  ├── electron-asar/           # Assar officiel Electron
+  ├── bytenode/                # Compilation JavaScript → bytecode V8
+  ├── electron-asar/           # ASAR officiel Electron
   ├── electron-packager/       # Empaquetage Electron
   ├── javascript-obfuscator/   # Obfuscation de code JS
   ├── minimist/                # Parsing d'arguments CLI
@@ -64,44 +88,74 @@ build_tools/vendor/
   ├── sharp/                   # Traitement d'images
   ├── tmp/                     # Gestion des fichiers temporaires
   ├── 7zip-bin/                # Compression 7-Zip
-  ├── nsis/                    # Créateur d'installateurs
+  ├── nsis/                    # Créateur d'installateurs NSIS
   ├── upx/                     # Compression d'exécutables
   └── signtool/                # Signature de code Windows (optionnel)
 ```
 
-Chaque module est utilisé localement sans dépendre du `node_modules` global, garantissant une **reproductibilité totale et une indépendance réseau**.
+**Avantages :**
+- ✅ Reproductibilité totale garantie
+- ✅ Indépendance réseau complète
+- ✅ Pas de dépendances système externes
+- ✅ Builds déterministes
 
-### Signature de code
-Le builder intègre un système de signature complet avec deux options :
+### 🔐 Signature de Code (Optionnel)
 
-1. **Certificat auto-signé (par défaut)**
-   - Généré automatiquement lors du premier build
-   - Stocké dans `build_tools/certs/cert-[hash].pfx`
-   - Mot de passe stocké dans `build_tools/certs/cert-[hash].key`
-   - Adapté pour les tests et le développement
+Le builder intègre un **système automatique de signature** avec deux modes :
 
-2. **Certificat personnalisé (recommandé pour la production)**
-   - Nécessite Windows SDK (pour signtool.exe) - détecté automatiquement
-   - Placer votre certificat .pfx dans `build_tools/certs/signing.pfx`
-   - Configurer via les variables d'environnement :
-     ```powershell
-     $env:PFX_PATH="chemin/vers/certificat.pfx"  # Optionnel si dans certs/signing.pfx
-     $env:PFX_PASS="mot-de-passe-certificat"
-     ```
+#### Mode 1 : Auto-signé (Défaut - Développement)
+- ✅ Généré automatiquement lors du premier build
+- 📁 Stocké dans `build_tools/certs/cert-[hash].pfx`
+- 🔑 Mot de passe dans `build_tools/certs/cert-[hash].key`
+- ⚡ Aucune configuration requise
 
-### Comportement par défaut de la signature
-- La signature est automatique par défaut : le builder tentera toujours de signer les binaires générés.
-- Par conception pour les builds offline et reproductibles, le builder utilise en priorité le binaire `signtool.exe` fourni localement : placez-le dans `build_tools/vendor/signtool/signtool.exe` si vous souhaitez contrôler la version de l'outil.
-- Si vous fournissez un module `build_tools/signing.js` exposant une fonction `signExe(path, cert, pass)`, le builder l'utilisera en priorité pour effectuer la signature.
-- Si aucun outil ni module n'est présent, le builder génèrera automatiquement un certificat auto-signé (usage développement) et tentera la signature avec celui-ci.
+#### Mode 2 : Certificat Personnalisé (Production)
 
-### Détection dynamique d'Electron
-Le builder détecte automatiquement la distribution Electron aux emplacements suivants :
-1. `./node_modules/electron/dist` (local au projet)
-2. `../node_modules/electron/dist` (dossier parent)
-3. `../../node_modules/electron/dist` (racine du workspace)
+```powershell
+# Option 1 : Fichier dans le dossier par défaut
+# Placer: build_tools/certs/signing.pfx
 
-Cela permet une **flexibilité maximale** : vous pouvez partager une installation Electron commune ou avoir une instance isolée par projet.
+# Option 2 : Variables d'environnement
+$env:PFX_PATH="chemin/vers/certificat.pfx"
+$env:PFX_PASS="mot-de-passe-certificat"
+
+# Lancer le build
+node build_tools/builder.js
+```
+
+**Priorité de signature :**
+1. Module personnalisé `build_tools/signing.js` (si présent)
+2. `signtool.exe` local dans `build_tools/vendor/signtool/`
+3. Windows SDK `signtool.exe` (auto-détecté)
+4. Certificat auto-signé (fallback)
+
+---
+
+## ⚡ Démarrage Rapide
+
+### Pour les Pressés (< 5 min)
+
+```powershell
+# 1. Allez dans votre dossier d'application
+cd D:\mon-app
+
+# 2. Lancez le builder
+node D:\chemin-vers\metadidomi-builder\build_tools\builder.js
+
+# 3. C'est tout ! ✅
+# Résultat: ./dist/MonApp-Setup-1.0.0.exe
+```
+
+### Structure Minimale Requise
+
+```
+mon-app/
+  package.json           ← Généré automatiquement si manquant
+  main.js                ← Généré automatiquement si manquant
+  index.html             ← Généré automatiquement si manquant
+```
+
+**Si aucun fichier n'existe, le builder génère une application de démo complète et fonctionnelle !** 🎉
 
 ---
 
@@ -300,137 +354,31 @@ npm update
 
 ---
 
-## Utilisation
+## 🎯 Configuration
 
-### 🚀 Démarrage rapide - Mode par défaut
-**Le plus simple** - Exécutez le builder depuis votre dossier d'application :
-```powershell
-# Depuis votre répertoire d'application
-cd D:\mon-app
-node D:\chemin-vers\metadidomi-builder\build_tools\builder.js
-```
+### Modes de Construction
 
-**OU depuis app_src inclus :**
-```powershell
-# Exemple avec app_src du builder (simplement tester)
-cd D:\metadidomi-builder\app_src
-node ../build_tools/builder.js
-```
+#### ⭐ Standard (Défaut) - Installateur NSIS
 
-✅ **Résultat :**
-- Si aucun fichier d'app : Génère `package.json`, `main.js`, `preload.js`, `index.html` à la racine
-- Exécutable et installateur créés dans `./dist/`
-- `./dist/MonApp-Setup-1.0.0.exe` (installateur professionnel)
-
-### 📦 Mode professionnel - Packager votre projet existant
-**Avec votre propre application Electron** (✅ RECOMMANDÉ) :
-```powershell
-# IMPORTANT: Se positionner dans le répertoire de VOTRE APPLICATION
-# Ne pas lancer depuis le répertoire du builder !
-
-# Exemple 1: Depuis votre application
-cd C:\MonApp
-node C:\metadidomi-builder\build_tools\builder.js
-
-# Exemple 2: Depuis app_src du builder (test/demo)
-cd C:\metadidomi-builder\app_src
-node ../build_tools/builder.js
-
-# Exemple 3: Avec chemins personnalisés
-node C:\metadidomi-builder\build_tools\builder.js --app-src D:\mon-app --output D:\dist
-```
-
-✅ **Résultat :** `./dist/MonApp-Setup-1.0.0.exe` (installateur)
-
-### 🔐 Avec chiffrement
-Définissez une clé de chiffrement pour protéger les ressources :
-```powershell
-cd D:\mon-app
-$env:KEY="votre-clé-secrète"
-node D:\chemin-vers\metadidomi-builder\build_tools\builder.js
-```
-
-**⚠️ IMPORTANT :** 
-- Les paramètres `--app-src` et `--output` sont **optionnels**
-- **Comportement par défaut :** lit depuis le répertoire courant et génère dans `./dist`
-- Si aucun fichier d'app : Les fichiers de démo sont générés à la racine du répertoire courant
-- Le builder **n'écrase pas** les fichiers existants
-- Exclusion automatique : `node_modules`, `.git`, `dist`, `build`, `.next`, `coverage`
-- Votre projet doit avoir au minimum : `package.json`, `main.js` (sinon ils seront générés)
-
-### Temps de construction
-- Application par défaut : environ 2-3 minutes
-- Le temps varie selon la taille de l'application et les options activées (UPX, LITE, CREATE_INSTALLER, etc.)
-- LITE mode : peut être légèrement plus lent (analyse des dépendances)
-
-## Structure minimale de l'application
-Le builder lit depuis le répertoire courant par défaut. Voici une structure recommandée :
-
-```
-mon-app/
-  package.json        # nom, productName, version, main (⭐ généré si manquant)
-  main.js             # processus principal Electron (⭐ généré si manquant)
-  preload.js          # script preload (⭐ généré si manquant)
-  index.html          # interface principale (⭐ généré si manquant)
-  assets/
-    icon.ico          # icône Windows (optionnelle)
-    js/
-      renderer.js     # scripts front-end
-```
-
-### ⭐ Auto-génération intelligente
-
-Si vous exécutez le builder dans un dossier vide, il génère automatiquement :
-- ✅ `package.json` : Configuration de base
-- ✅ `main.js` : Application Electron fonctionnelle
-- ✅ `preload.js` : Bridge sécurisé contextBridge
-- ✅ `index.html` : Interface de démonstration
-- ✅ `assets/` : Dossier pour vos ressources
-
-Ensuite, vous pouvez éditer ces fichiers et relancer le builder pour construire votre application.
-
-### Configurations minimales :
-
-**`package.json`** : au minimum
-```json
-{
-  "name": "mon-app-electron",
-  "productName": "MonApp",
-  "version": "1.0.0",
-  "main": "main.js"
-}
-```
-
-**`main.js`** : créez une BrowserWindow et chargez `index.html`
-- Le builder génère un exemple si absent
-
-**`preload.js`** : expose uniquement les API nécessaires via `contextBridge` pour respecter `contextIsolation`
-- Le builder génère un exemple si absent
-
-**`index.html`** : page d'entrée simple
-- Le builder génère un exemple si absent
-
-**`assets/icon.ico`** : si présente, elle sera utilisée pour l'exécutable et l'installateur
-
-### Modes de construction
-
-#### ⭐ Standard (par défaut) - Installateur NSIS
-Crée un installateur professionnel avec options d'installation :
 ```powershell
 node build_tools/builder.js
 # Résultat: ./dist/MonApp-Setup-1.0.0.exe
 ```
 
-#### 💾 Portable - Exécutable sans installation
-Crée un exécutable portable au lieu d'un installateur :
+Crée un **installateur professionnel** avec options d'installation, raccourcis, démarrage automatique.
+
+#### 💾 Portable - Exécutable Autonome
+
 ```powershell
 $env:CREATE_PORTABLE_EXE="true"
 node build_tools/builder.js
-# Résultat: ./dist/MonApp.exe (portable, ~130MB avec Electron)
+# Résultat: ./dist/MonApp.exe (portable, ~130MB)
 ```
 
-#### ⚡ LITE - Mode optimisé
-Analyse et exclut les modules inutiles pour un build plus léger :
+Exécutable indépendant sans installation requise.
+
+#### ⚡ LITE - Mode Optimisé
+
 ```powershell
 $env:LITE_BUILD="true"
 node build_tools/builder.js
@@ -438,615 +386,320 @@ node build_tools/builder.js
 # Rapport: electron-lite-deps-report.txt
 ```
 
-#### 🚫 Sans installateur
-Crée uniquement les fichiers de base sans NSIS :
+Analyse et exclut automatiquement les modules inutiles. Génère un rapport détaillé.
+
+#### 🚫 Sans Installateur
+
 ```powershell
 $env:SKIP_INSTALLER="true"
 node build_tools/builder.js
-# Résultat: Ressources de base seulement (win-unpacked)
+# Résultat: Ressources de base seulement
 ```
 
-#### 🔗 Combinaisons utiles
+#### 🔐 Avec Chiffrement
+
 ```powershell
-# Portable + LITE
-$env:CREATE_PORTABLE_EXE="true"
-$env:LITE_BUILD="true"
+$env:KEY="votre-clé-secrète"
+node build_tools/builder.js
+```
+
+#### ⚙️ Compression UPX (Optionnelle)
+
+```powershell
+# Mode rapide (recommandé)
+$env:USE_UPX="true"
 node build_tools/builder.js
 
-# Avec clé de chiffrement + Sortie personnalisée
-$env:KEY="ma-clé-secrète"
-node build_tools/builder.js --output C:\MonApp-dist
-
-# Toutes les options
-$env:KEY="clé"
-$env:LITE_BUILD="true"
+# Mode ultra-brute (très lent, gain maximal)
 $env:USE_UPX="true"
-node build_tools/builder.js --app-src D:\app --output D:\dist
+$env:UPX_ULTRA_BRUTE="true"
+node build_tools/builder.js
 ```
 
-### Signature de code (optionnel)
-La signature est automatique si configurée :
+#### 🔗 Combinaisons Utiles
+
 ```powershell
-$env:PFX_PATH="chemin/vers/certificat.pfx"  # Optionnel si dans certs/signing.pfx
-$env:PFX_PASS="mot-de-passe-certificat"
+# Portable + LITE + Chiffrement
+$env:CREATE_PORTABLE_EXE="true"
+$env:LITE_BUILD="true"
+$env:KEY="clé-secrète"
+node build_tools/builder.js
+
+# Avec UPX + Signature personnalisée
+$env:USE_UPX="true"
+$env:PFX_PATH="cert.pfx"
+$env:PFX_PASS="mot-de-passe"
+node build_tools/builder.js
 ```
 
-## Résumé des fichiers générés
-- `dist/MonApp-Setup-X.X.X.exe` : Installateur NSIS professionnel (créé par défaut)
-- `dist/MonApp.exe` ou `dist/MonApp-lite.exe` : Exécutable portable (si `CREATE_PORTABLE_EXE=true`)
-- `electron-lite-deps-report.txt` : Rapport d'optimisation LITE (si `LITE_BUILD=true`)
+### Paramètres Avancés
 
-## Fonctionnalités
-- ✨ Construction automatisée d'applications Electron
-- 📊 Mode LITE pour optimisation automatique des dépendances
-- � Rapport détaillé des modules inclus/exclus
-- 🔒 Chiffrement des ressources (AES-256-CBC)
-- 📦 Compression multi-niveau avec UPX
-- 🧪 Test automatique post-compression
-- ✍️ Signature de code automatique (optionnel)
-- 💼 Création d'exécutable portable
-- 🎯 Installateur NSIS professionnel
-- 🛡️ Protection hybride du code (bytecode + obfuscation légère)
-- 🔌 Construction 100% offline
-- 🔍 Validation HMAC des ressources
-- 📝 Watermarking des builds
-- 🔄 Téléchargement et installation automatiques de NSIS
-- 🎨 Interface d'installation personnalisable
-- 🚀 Options de démarrage automatique
-- 🗑️ Désinstallation propre et complète
-- 🛡️ Protection renforcée du code par compilation bytecode
-- ⚡ Système de fallback automatique pour la compatibilité
-- 🔐 **Loader natif intégré** (pymloader) avec exécution bytecode native
-- 🎯 **Protection bytecode multi-couches** (AES-256 + zlib + marshal)
-- 📦 **Module natif auto-compilé** pour exécution sécurisée
+| Paramètre | Description | Exemple |
+|-----------|-------------|---------|
+| `--app-src <chemin>` | Dossier source (défaut: cwd) | `--app-src D:\mon-app` |
+| `--output <chemin>` | Dossier sortie (défaut: ./dist) | `--output D:\dist` |
+| `--out <chemin>` | Alias pour --output | `--out .\dist` |
+
+### Fichiers Automatiquement Exclus
+
+- `node_modules/` - Dépendances (à installer dans votre app)
+- `.git/`, `.gitignore` - Version control
+- `dist/`, `build/`, `.next/` - Anciens builds et caches
+- `.env`, `.env.local` - Variables sensibles
+- `*.pem`, `*.key` - Certificats privés
+
+### Temps de Construction
+
+- **Application standard** : 2-3 minutes
+- **Avec LITE** : 3-4 minutes (analyse supplémentaire)
+- **Avec UPX** : +2-5 minutes selon la taille
+- **UPX ultra-brute** : +10-30 minutes
+
+### Fichiers Générés
+
+- `dist/MonApp-Setup-X.X.X.exe` - Installateur NSIS professionnel (défaut)
+- `dist/MonApp.exe` - Exécutable portable (si `CREATE_PORTABLE_EXE=true`)
+- `dist/MonApp-lite.exe` - Version optimisée (si `LITE_BUILD=true`)
+- `electron-lite-deps-report.txt` - Rapport d'optimisation LITE
+
+### Architecture de votre Application
+
+#### Structure Minimale
+
+```
+mon-app/
+  package.json           ← Obligatoire (généré si manquant)
+  main.js                ← Obligatoire (généré si manquant)
+  preload.js             ← Optionnel (généré si manquant)
+  index.html             ← Optionnel (généré si manquant)
+  assets/
+    icon.ico             ← Optionnel (utilisé dans l'exe et installateur)
+```
+
+#### Structure Recommandée pour Projets Complexes
+
+```
+mon-app/
+  package.json
+  main.js
+  preload.js
+  index.html
+  src/
+    components/
+    utils/
+    renderer.js
+  assets/
+    icon.ico
+    images/
+    data/
+```
+
+**Important :** Le builder traite **récursivement TOUS les niveaux** de profondeur. Aucune limite !
+
+---
+
+## ✨ Fonctionnalités Principales
+
+- ✅ Construction **100% offline** - Toutes les dépendances embarquées
+- ✅ **Reproductibilité** - Builds déterministes et vérifiables
+- ✅ **Chiffrement AES-256-CBC** - Ressources protégées
+- ✅ **Bytecode V8** - Compilation JavaScript → bytecode natif
+- ✅ **Obfuscation intelligente** - Protection du code de fallback
+- ✅ **Mode LITE** - Optimisation automatique des dépendances
+- ✅ **Compression UPX** - Réduction taille exe (optionnel)
+- ✅ **Signature de code** - Automatique ou personnalisée
+- ✅ **Exécutable portable** - Sans installation requise
+- ✅ **Installateur NSIS** - Interface professionnelle
+- ✅ **Validation HMAC** - Intégrité des ressources garantie
+- ✅ **Watermarking** - Métadonnées de build sécurisées
+- ✅ **Protection preload.js** - Injection auto de sécurité contextBridge
+- ✅ **Empaquetage ASAR récursif** - Tous les fichiers inclus à tous les niveaux
+- ✅ **Gestion Python** - Support applications Python standalone
 
 # 🛡️ Système de Protection Avancé
 
 Le builder intègre un **système complet de protection du code** avec obfuscation intelligente, chiffrement multi-couches, et anti-analyse.
 
-👉 **[📖 Voir la documentation complète des protections →](build_tools_py/PROTECTION_COMMANDS.md)**
+### Deux Modes de Protection
 
-## 🔄 Deux Modes de Protection
-
-### 1️⃣ Mode Interactif (Défaut - Convivial)
-
-Lancez simplement pyMetadidomi sans arguments pour le mode interactif :
-
+**Mode Interactif** - Questions guidées pour chaque protection
 ```powershell
 cd metadidomi-builder/build_tools_py/pyMetadidomi
 python pyMetadidomi.py
 ```
 
-Le programme vous pose des questions interactives pour chaque protection :
-- ✅ Anti-débogage
-- ✅ Code parasite (junk)
-- ✅ Détection VM & Sandbox
-- ✅ Anti-reverse engineering
-- ✅ Code mort
-- ✅ Protection temporelle
-- ✅ Chiffrement multi-couches
-- ✅ Anti-décompilation
-- ✅ Obfuscation (renommage)
-- ✅ Compilation EXE (optionnel avec Nuitka)
-
-**Parfait pour** : Tester les protections individuellement, apprendre, ou usage manuel
-
----
-
-### 2️⃣ Mode CLI (Batch - Automatisé)
-
-Passez des arguments pour automatiser la protection sans interaction :
-
-#### Options Individuelles de Protection
-
+**Mode CLI** - Automatisé avec arguments
 ```powershell
-# Obfuscation du code (renommage sécurisé)
-python pyMetadidomi.py script.py --carbon
+# Presets rapides
+python pyMetadidomi.py script.py --light-protection      # Léger
+python pyMetadidomi.py script.py --medium-protection     # Moyen
+python pyMetadidomi.py script.py --heavy-protection      # Maximal
 
-# Génération de code parasite inoffensif
-python pyMetadidomi.py script.py --junk
-
-# Injection de code anti-débogage
-python pyMetadidomi.py script.py --bugs
-
-# Génération de code mort inutile
-python pyMetadidomi.py script.py --dead-code
-
-# Protection temporelle (expire après N ans)
-python pyMetadidomi.py script.py --time-prot --expiration 2026
-
-# Anti-VM / Anti-virtualisation
-python pyMetadidomi.py script.py --anti-vm
-
-# Anti-analyse dynamique
-python pyMetadidomi.py script.py --anti-reverse
-
-# Anti-décompilation
-python pyMetadidomi.py script.py --anti-decompile
-
-# Chiffrement multi-couches
-python pyMetadidomi.py script.py --multi-encrypt
-
-# Chiffrement simple (couche supplémentaire)
-python pyMetadidomi.py script.py --encrypt
+# Options individuelles
+python pyMetadidomi.py script.py --carbon                 # Obfuscation
+python pyMetadidomi.py script.py --junk                   # Code parasite
+python pyMetadidomi.py script.py --anti-vm                # Anti-VM
+python pyMetadidomi.py script.py --multi-encrypt          # Chiffrement multi-couches
 ```
 
-#### Presets de Protection
-
-**Légère (Recommandée pour App Standard)** - Équilibre sécurité/performance
-```powershell
-python pyMetadidomi.py script.py --light-protection
-# Inclut: obfuscation + code junk
-# Poids: ~5% augmentation
-# Performance: Aucun impact
-```
-
-**Moyenne (Recommandée pour App Sensible)** - Protection robuste
-```powershell
-python pyMetadidomi.py script.py --medium-protection
-# Inclut: obfuscation + junk + bugs + dead-code
-# Poids: ~15% augmentation
-# Performance: Impact négligeable
-```
-
-**Lourde (Recommandée pour App Critique)** - Protection maximale
-```powershell
-python pyMetadidomi.py script.py --heavy-protection
-# Inclut: obfuscation + junk + bugs + dead-code + temps + anti-VM + anti-reverse + anti-decompile + multi-encrypt
-# Poids: ~40% augmentation
-# Performance: Impact modéré (~10% plus lent au démarrage)
-```
-
-#### Combinaison Personnalisée
-
-Vous pouvez combiner plusieurs protections individuelles :
+### Protection pour Electron
 
 ```powershell
-# Obfuscation + Protection Temporelle + Anti-VM
-python pyMetadidomi.py script.py --carbon --time-prot --anti-vm --expiration 2027
-
-# Chiffrement multi-couches + Anti-Décompilation
-python pyMetadidomi.py script.py --multi-encrypt --anti-decompile
-
-# Personnalisé complet
-python pyMetadidomi.py script.py --carbon --junk --bugs --dead-code --anti-vm --anti-reverse -o script-protected.py
-```
-
-#### Options Avancées
-
-```powershell
-# Complexité du code mort (1-10, défaut: 10)
-python pyMetadidomi.py script.py --dead-code --dead-code-complexity 5
-
-# Fichier de sortie personnalisé
-python pyMetadidomi.py script.py --carbon -o mon-app-obfusque.py
-
-# Compiler en EXE après protection (nécessite Nuitka)
-python pyMetadidomi.py script.py --medium-protection --compile
-
-# Tout combiné
-python pyMetadidomi.py script.py --heavy-protection --output script-final.py --compile
-```
-
----
-
-### Comparaison des Deux Modes
-
-| Aspect | Mode Interactif | Mode CLI |
-|--------|-----------------|----------|
-| **Utilisation** | `python pyMetadidomi.py` | `python pyMetadidomi.py script.py --carbon` |
-| **Interaction** | Questions posées | Aucune (batch) |
-| **Idéal pour** | Développement, apprentissage | Automatisation, CI/CD |
-| **Vitesse** | Lent (questions) | Rapide (direct) |
-| **Configuration** | Visuelle/intuitive | Arguments CLI |
-| **Intégration** | Scripts manuels | Pipelines de build |
-| **Compilation EXE** | ✅ Proposé à la fin | ✅ Via `--compile` |
-
-**Exemple de CI/CD Pipeline :**
-```powershell
-# Boucle automatisée sur tous les fichiers
-Get-ChildItem -Path "src" -Filter "*.py" | ForEach-Object {
-    python pyMetadidomi.py $_.FullName --heavy-protection --output "protected/$($_.BaseName)-protected.py"
-}
-```
-
----
-
-## 🛡️ Intégration avec builder.js (Electron)
-
-Le builder Electron propose aussi des options de protection pour les applications Electron :
-
-```powershell
-# Protections pour Electron
 node build_tools/builder.js --light-protection
 node build_tools/builder.js --medium-protection
 node build_tools/builder.js --heavy-protection
 ```
 
-Voir la section **"Commandes principales et options"** ci-dessous pour les détails complets.
+👉 **[📖 Documentation complète des protections →](build_tools_py/PROTECTION_COMMANDS.md)**
+
+## Construction LITE (optimisation)
+```powershell
+$env:LITE_BUILD="true"
+node build_tools/builder.js
+```
+Génère un rapport `electron-lite-deps-report.txt` avec les modules analysés.
+
+## Clé de Chiffrement Personnalisée
+```powershell
+$env:KEY="votre-clé-secrète"
+node build_tools/builder.js
+```
+Si non défini, une clé est générée automatiquement.
+
+## Compression UPX
+```powershell
+# Mode rapide (défaut)
+$env:USE_UPX="true"
+node build_tools/builder.js
+
+# Mode ultra-brute (très lent)
+$env:USE_UPX="true"
+$env:UPX_ULTRA_BRUTE="true"
+node build_tools/builder.js
+```
 
 ---
 
-# Commandes principales et options
+## 🏗️ Architecture du Builder
 
-Voici toutes les commandes disponibles pour utiliser le builder, avec explications et détails :
+Le builder suit le principe **"zero pollution"** :
 
-## Construction standard (installateur NSIS par défaut)
-Lance la construction avec création d'un installateur NSIS professionnel.
-```powershell
-node build_tools/builder.js
-```
-- **Résultat** : Un installateur `MonApp-Setup-X.X.X.exe` est créé dans le dossier `dist/`
-- **Remarque** : C'est le comportement par défaut du builder
+- ✅ Répertoire du builder : **jamais modifié**
+- ✅ Fichiers générés : dans votre répertoire courant ou `--output`
+- ✅ Isolation : utilise uniquement ses outils internes
+- ✅ Nettoyage : les fichiers temporaires sont auto-supprimés
 
-## Construction avec exécutable portable
-Crée un exécutable portable au lieu d'un installateur.
-```powershell
-$env:CREATE_PORTABLE_EXE="true"
-node build_tools/builder.js
-```
-- **Description** : Génère un exécutable portable (`MonApp.exe`) au lieu de l'installateur
-- **Option** : L'icône de l'app (`app_src/assets/icon.ico`) sera utilisée si présente.
-
-## Construction sans installateur
-Crée uniquement l'exécutable de base sans installateur.
-```powershell
-$env:SKIP_INSTALLER="true"
-node build_tools/builder.js
-```
-- **Description** : Ignore la création de l'installateur NSIS
-- **Résultat** : Seules les ressources de base sont créées (win-unpacked)
-
-## Construction LITE (optimisation des dépendances)
-Analyse et exclut les modules inutiles pour un build plus léger. Un rapport est généré.
-```powershell
-$env:LITE_BUILD="true"
-node build_tools/builder.js
-```
-- **Description** : Seuls les modules réellement utilisés sont conservés dans le package.json.
-- **Rapport** : Voir `electron-lite-deps-report.txt` pour le détail des modules inclus/exclus.
-- **Résultat** : Un installateur optimisé `MonApp-Setup-X.X.X.exe` est créé
-
-## Construction LITE + Exécutable portable
-Combine l'optimisation LITE et la création d'un exécutable portable.
-```powershell
-$env:LITE_BUILD="true"
-$env:CREATE_PORTABLE_EXE="true"
-node build_tools/builder.js
-```
-
-## Définir la clé de chiffrement
-Optionnel ! La clé est générée automatiquement si non fournie.
-```powershell
-$env:KEY="votre-clé-secrète"
-```
-- **Description** : Clé personnalisée pour chiffrer le fichier `resources.bin`
-- **Si non défini** : Une clé aléatoire de 32 caractères hexadécimaux sera générée automatiquement
-- **Vérification** : Le HMAC validera l'intégrité au lancement de l'application
-
-## Signature de code (optionnelle)
-Permet de signer l'exécutable final si vous avez un certificat.
-```powershell
-$env:PFX_PATH="chemin/vers/certificat.pfx"  # Optionnel si dans certs/signing.pfx
-$env:PFX_PASS="mot-de-passe-certificat"
-```
-- **Description** : La signature est automatique si ces variables sont définies. Le chemin de signtool.exe est détecté automatiquement.
-
-## Compression UPX avancée (optionnelle)
-La compression UPX est désormais optionnelle. Pour l'activer, définissez la variable d'environnement USE_UPX :
-- **Désactivée (par défaut)** :
-  ```powershell
-  node build_tools/builder.js
-  ```
-- **Compression rapide (best/force, recommandée)** :
-  ```powershell
-  $env:USE_UPX="true"
-  node build_tools/builder.js
-  ```
-  > Par défaut, le builder utilise UPX avec l'option `--best --force` (compression rapide et compatible CFG).
-- **Ultra-brute (très lent, pour gain maximal)** :
-  ```powershell
-  $env:USE_UPX="true"
-  $env:UPX_ULTRA_BRUTE="true"
-  node build_tools/builder.js
-  ```
-  > Avec `UPX_ULTRA_BRUTE=true`, le builder tente aussi la compression `--ultra-brute --force` (très longue mais parfois plus efficace).
-- **Description** : UPX compresse l'exécutable Electron uniquement si USE_UPX est à "true". Le mode ultra-brute est très lent mais peut réduire la taille davantage.
-
-## Structure requise de l'application (`--app-src`)
-
-Quand vous utilisez un projet personnalisé avec `--app-src`, assurez-vous que votre application Electron a cette structure minimale :
+### Flux de Compilation
 
 ```
-mon-app/
-  package.json        # nom, productName, version, main (obligatoire)
-  main.js             # Processus principal Electron (obligatoire)
-  preload.js          # Script preload (optionnel)
-  index.html          # Interface principale (si référencée dans main.js)
-  assets/
-    icon.ico          # Icône Windows (optionnelle)
-  src/
-    renderer.js       # Autres fichiers de l'app
+Répertoire courant (votre app)
+  ↓
+  ├─ package.json (généré si manquant)
+  ├─ main.js (généré si manquant)
+  ├─ index.html (généré si manquant)
+  └─ assets/ (créé si manquant)
+  ↓
+Builder (compile, chiffre, empaque, signe)
+  ↓
+./dist/
+  ├─ MonApp-Setup-1.0.0.exe (installateur)
+  └─ MonApp.exe (portable, si demandé)
 ```
 
-**⚠️ IMPORTANT - Fichiers d'exclusion automatique :**
+### Fichiers Générés par Défaut
 
-Les fichiers suivants NE SERONT JAMAIS inclus dans l'application construite, même s'ils existent dans votre dossier source :
-- `node_modules/` - Dépendances (trop volumineuses)
-- `dist/`, `build/` - Builds antérieures
-- `.git/`, `.gitignore` - Historique git
-- `.env`, `.env.local` - Variables d'environnement sensibles
-- `*.pem`, `*.key` - Certificats et clés privées
-- `config.build.yaml` - Fichier de configuration du builder (NE PAS inclure ici)
-- `package-lock.json` - Lock file du builder
+| Fichier | Quand ? | Contenu |
+|---------|---------|---------|
+| `package.json` | Manquant | Config Electron basique |
+| `main.js` | Manquant | Processus principal |
+| `preload.js` | Manquant | Bridge sécurisé |
+| `index.html` | Manquant | Interface démo |
+| `assets/icon.ico` | (optionnel) | Icône de l'app |
 
-**Exemple :**
-```powershell
-node build_tools/builder.js --app-src D:\mon-app --output D:\dist
-```
+---
 
-Cette commande empaquera uniquement les fichiers nécessaires de votre application, excluant automatiquement les fichiers système, configurations et données sensibles.
-
-## 🏗️ Architecture du Builder - Séparation des Responsabilités
-
-Le builder est conçu selon le principe **"zero pollution"** : 
-- ✅ **Le répertoire du builder reste propre** - Aucun fichier généré dedans
-- ✅ **Les fichiers générés vont dans le répertoire courant** - Ou là où vous les demandez
-- ✅ **Isolation complète** - Le builder n'utilise que ses outils internes (`build_tools/`)
-
-### Répertoires et leur rôle
-
-| Répertoire | Contenu | Rôle | Modifié ? |
-|-----------|---------|------|----------|
-| `metadidomi-builder/` | Builder + outils | Outil de construction | ❌ Jamais |
-| `metadidomi-builder/build_tools/` | Scripts et vendor | Moteur du builder | ❌ Jamais |
-| **`.` (répertoire courant)** | Votre application | Source et sortie | ✅ Lecture, génération de démo |
-| **`./package.json`** | Config app | ⭐ Généré si manquant | ✅ Créé si absent |
-| **`./main.js`, `./preload.js`, `./index.html`** | Code app | ⭐ Générés si manquants | ✅ Créés si absents |
-| **`./assets/`** | Ressources | Icônes, images | ✅ Créé si absent |
-| **`./dist/`** | Fichiers générés | Installers, exécutables | ✅ Créés ici |
-| **`./.build-temp/`** | Fichiers temporaires | Travail intermédiaire | ✅ Auto-nettoyés |
-
-### Flux de compilation
-```
-┌─────────────────────────────────────┐
-│  Node.js + Builder CLI              │
-│  node builder.js                    │
-└──────────────┬──────────────────────┘
-               │
-        ┌──────▼──────────────┐
-        │  Répertoire courant │
-        │  (votre app)        │
-        │                     │
-        │ • package.json ✅   │
-        │ • main.js      ✅   │
-        │ • preload.js   ✅   │
-        │ • index.html   ✅   │
-        │ • assets/      ✅   │
-        │                     │
-        │ ⭐ Générés si       │
-        │    manquants       │
-        └──────┬──────────────┘
-               │
-        ┌──────▼──────┐
-        │   Builder   │
-        │   Compile   │
-        │   Chiffre   │
-        │   Empaque   │
-        │   Signe     │
-        └──────┬──────┘
-               │
-        ┌──────▼──────────┐
-        │ ./dist/         │
-        │                 │
-        │ ✅ MonApp.exe   │
-        │ ✅ Setup.exe    │
-        └─────────────────┘
-```
-
-## Configuration de la destination de sortie et du dossier source
-
-Par défaut, le builder lit depuis le **répertoire courant** et génère dans **`./dist/`** de ce même répertoire. Vous pouvez personnaliser ces chemins avec les options `--app-src` et `--output` :
-
-### Comportement selon le mode d'utilisation
-
-**Mode par défaut (recommandé)** - Utilise le répertoire courant
-```powershell
-cd C:\MonApp
-node C:\chemin-vers\metadidomi-builder\build_tools\builder.js
-# Utilise . (répertoire courant) et génère dans ./dist/
-# Si aucun fichier d'app: génère package.json, main.js, etc. à la racine
-```
-
-**Mode personnalisé (avec `--app-src`)** - Packager un projet externe
-```powershell
-node build_tools/builder.js --app-src "C:\Mon\Projet\Electron" --output "C:\dist"
-```
-
-**Mode mixte** - Sortie personnalisée, source = répertoire courant
-```powershell
-cd C:\MonApp
-node C:\chemin-vers\metadidomi-builder\build_tools\builder.js --output C:\dist-custom
-```
-
-### ✅ Avantages du mode par défaut
-
-- **Intuitif** : Exécutez le builder depuis votre dossier d'application
-- **Auto-génération** : Les fichiers de démo sont créés là où vous en avez besoin
-- **Aucune modification** des fichiers existants
-- **Sortie prévisible** : Toujours dans `./dist/` du répertoire courant
-- **Intégration CI/CD** : Facile à scripter et automatiser
-
-### ⚠️ Fichiers automatiquement exclus de l'archive
-
-Quand vous utilisez `--app-src`, les fichiers suivants ne sont **jamais** inclus :
-- `node_modules/` - Les modules Node.js (à installer dans votre app)
-- `.git/`, `.gitignore`, `.gitattributes` - Fichiers de version control
-- `dist/`, `build/`, `out/` - Anciens artefacts de build
-- `.next/` - Cache Next.js
-- `coverage/` - Fichiers de tests
-- `npm-debug.log` - Fichiers de debug
-- `package-lock.json` - Lock file
-
-### ✅ Fichiers requis dans votre projet source
-```
-MonApp/
-  ├── package.json          ⭐ Généré si manquant
-  ├── main.js               ⭐ Généré si manquant
-  ├── preload.js            ⭐ Généré si manquant
-  ├── index.html            ⭐ Généré si manquant
-  ├── assets/
-  │   └── icon.ico          (optionnel)
-  └── ...vos autres fichiers
-```
-
-### 📝 Exemples pratiques
+## 📝 Exemples Pratiques
 
 ```powershell
-# Mode simple : exécuter depuis le dossier de l'app
+# Mode simple (depuis votre app)
 cd D:\MonApp
 node C:\metadidomi-builder\build_tools\builder.js
 
-# Packager un projet externe
+# Avec source et sortie personnalisées
 node build_tools/builder.js --app-src D:\mon-app --output D:\dist
 
-# Raccourci --out au lieu de --output
-node build_tools/builder.js --out C:\MyApp-dist
-
-# Utilisation avec variables d'environnement
+# Avec chiffrement
 $env:KEY="ma-clé-secrète"
-node build_tools/builder.js --app-src C:\MonApp --output C:\MonApp\dist
+node build_tools/builder.js --app-src C:\MonApp
 
-# Via npm (les arguments sont passés au script build)
-npm run build -- --app-src D:\projet --output D:\dist
-
-# Depuis n'importe quel répertoire
-cd D:\autre-dossier
-node "C:\metadidomi-builder\build_tools\builder.js" --app-src . --output .\dist
-
-# Avec chiffrement et clé personnalisée
-$env:KEY="clé-secrète-32-caractères-hex"
-node build_tools/builder.js --app-src C:\MonApp --output C:\MonApp\dist
-```
-
-### ❌ Erreurs courantes et solutions
-
-**❌ ERREUR** : `Le builder doit être exécuté depuis le répertoire de votre application`
-```
-[builder] ERREUR: Le builder doit être exécuté depuis le répertoire de votre application.
-[builder] Utilisez: node <chemin-builder>/build_tools/builder.js
-```
-**✅ SOLUTION** : Assurez-vous d'être dans le bon répertoire ou utilisez `--app-src`
-```powershell
-cd C:\MonApp  # Allez au répertoire de votre app
-node C:\metadidomi-builder\build_tools\builder.js
-```
-
-**❌ ERREUR** : `Dossier source personnalisé introuvable`
-```
-[builder] ERREUR: Dossier source personnalisé introuvable: D:\non-existant
-```
-**✅ SOLUTION** : Vérifiez que le chemin existe et est correct
-```powershell
-node build_tools/builder.js --app-src "C:\chemin\existant"
-```
-
-## Nettoyage et relance du build
-Si vous avez des erreurs de suppression de fichiers (EPERM), tuez les processus Electron avant de relancer :
-```powershell
-taskkill /F /IM electron.exe
+# Portable + LITE + UPX
+$env:CREATE_PORTABLE_EXE="true"
+$env:LITE_BUILD="true"
+$env:USE_UPX="true"
 node build_tools/builder.js
 ```
 
-## Résumé des fichiers générés
-- `dist/MonApp.exe` : Application portable
-- `dist/MonApp-lite.exe` : Version optimisée (LITE)
-- `dist/MonApp-Setup.exe` : Installateur NSIS professionnel
-- `electron-lite-deps-report.txt` : Rapport d'optimisation LITE
+### Dépannage
 
-## Personnalisation de l'installateur
-L'installateur NSIS utilise automatiquement les informations de votre application :
-- Nom et description de l'application
-- Version et copyright
-- Icône personnalisée (si présente dans `app_src/assets/icon.ico`)
-- URLs (site web, support, documentation) depuis package.json
-- Informations de licence (si `license.txt` est présent)
+**Si le build échoue à cause d'un processus Electron bloqué :**
+```powershell
+taskkill /F /IM electron.exe
+```
 
-Les utilisateurs peuvent personnaliser leur installation avec :
-- Choix de l'emplacement d'installation
-- Option de raccourci dans le menu Démarrer
-- Option de démarrage automatique avec Windows
-- Lancement automatique après installation
+**Erreur : "Dossier source introuvable"**
+- Vérifiez que le chemin `--app-src` existe et est correct
+
+**Erreur EPERM (permissions) :**
+- Fermez tous les processus Electron et relancez
 
 ---
 
-Pour toute option, vous pouvez combiner les variables d'environnement selon vos besoins. Toutes les commandes sont utilisables en PowerShell ou en ligne de commande Windows.
+## 🔒 Protection du Code Source
 
-## 🔒 Protection du code source - Approche Pro
+Le builder utilise une **approche hybride non-destructive** :
 
-Le builder utilise une approche **hybride et non-destructive** pour protéger votre code source :
+### ✅ Fichiers Source Toujours Intacts
+- ✅ Vos fichiers originaux ne sont **jamais modifiés**
+- ✅ Continuez à éditer votre code après chaque build
+- ✅ Chaque build utilise une copie temporaire isolée
+- ✅ Cleanup automatique des fichiers temporaires
 
-### ✅ Vos fichiers sources restent INTACTS
-**Point crucial** : Le builder ne modifie **jamais** vos fichiers originaux
-- ✅ Vos fichiers source restent éditables
-- ✅ Vous pouvez continuer à travailler et modifier vos sources
-- ✅ Chaque build utilise une copie temporaire
-- ✅ Les originaux dans votre répertoire source ne changent jamais
-
-### 🔄 Traitement RÉCURSIF de toute l'application
-**Important** : Le builder traite **TOUS les fichiers** à **TOUS les niveaux**
-- ✅ Fichiers à la racine
-- ✅ Fichiers dans les sous-dossiers (niveau 1, 2, 3, ...)
+### 🔄 Traitement Récursif Complet
+- ✅ TOUS les fichiers protégés à TOUS les niveaux
+- ✅ Aucune limite de profondeur de dossiers
 - ✅ Structure complète préservée
-- ✅ **Aucune limite de profondeur**
+- ✅ Même les applications complexes sont totalement protégées
 
-Cela signifie que même les applications complexes avec plusieurs niveaux de dossiers sont **complètement protégées**.
+### 🛡️ Couches de Protection
 
-```
-Avant le build:
-├── main.js (original, éditables)
-├── preload.js (original, éditables)
-└── index.html (original, éditable)
+1. **Bytecode V8** - Compilation JavaScript → bytecode natif (résiste à la décompilation)
+2. **Fallback Sécurisé** - Code de secours si bytecode échoue
+3. **Obfuscation Légère** - Protection additionnelle (compatible et stable)
+4. **Chiffrement AES-256** - Ressources et metadata chiffrées
+5. **HMAC Validation** - Intégrité vérifiée au lancement
 
-Pendant le build:
-├── main.js (original, INCHANGÉ ✅)
-├── preload.js (original, INCHANGÉ ✅)
-├── index.html (original, INCHANGÉ ✅)
-└── .build-temp/
-    └── temp_protected/
-        ├── main.js (copie protégée)
-        ├── main.js.jsc (bytecode)
-        └── index.html (minimifié)
+### 🔐 preload.js - Injection Auto-Sécurité
 
-Après le build:
-├── main.js (original, prêt pour modification ✅)
-├── preload.js (original, prêt pour modification ✅)
-├── index.html (original, prêt pour modification ✅)
-└── dist/
-    └── [installateur avec fichiers protégés]
+Le builder vérifie et injecte automatiquement la sécurité contextBridge :
+
+```javascript
+// ✅ Accepté (déjà sécurisé)
+contextBridge.exposeInMainWorld('api', {
+  invoke: (channel) => ipcRenderer.invoke(channel)
+});
+
+// ⚠️ Sera enrichi par injection auto du builder
+contextBridge.exposeInMainWorld('api', {...});
 ```
 
-### 🛡️ Architecture de protection
+L'injection ajoute automatiquement :
+- Liste blanche de modules autorisés
+- Validation des canaux IPC
+- Gestion des erreurs de sécurité
 
-1. **Copie isolée** : Tous les fichiers sont copiés dans `.build-temp/temp_protected/`
-2. **Transformation** : Seules les copies sont obfusquées et compilées
-3. **Encapsulation** : Les fichiers protégés sont packagés dans l'application
-4. **Source intacte** : Vos originaux restent dans le répertoire source
+---
 
-### 🔐 Compilation en bytecode
-- Les fichiers JavaScript sensibles sont compilés en bytecode V8 via bytenode
-- Protection native contre la décompilation directe
-- Optimisation des performances d'exécution
-- Conversion automatique des fichiers .js en .jsc (uniquement dans le build)
-
-### 🚀 Système de fallback intelligent
-- Loader généré automatiquement pour chaque fichier
-- Compatibilité garantie même si le bytecode échoue
-- Contexte d'exécution sécurisé avec isolation
-- Gestion transparente des dépendances Node.js
-
-### 🎭 Obfuscation légère
-- Protection additionnelle du code de fallback
+## 📊 Comparaison avec electron-builder
 - Options d'obfuscation sûres et compatibles
 - Pas de transformation agressive du code
 - Préserve la stabilité de l'application
@@ -1431,62 +1084,21 @@ L'empaquetage récursif est optimisé pour :
 
 ## 📊 Comparaison avec electron-builder
 
-### metadidomi-builder vs electron-builder
-
 | Critère | metadidomi-builder | electron-builder |
 |---------|-------------------|------------------|
 | **Installation** | 100% offline, vendor local | NPM global ou projet |
 | **Dépendances** | Minimal (electron) | Nombreuses |
 | **Configuration** | Variables env + builder.js | Config JSON/YAML complexe |
-| **Personnalisation** | Code source modifiable | Limitée aux options |
-| **Chiffrement ressources** | ✅ AES-256 intégré | ❌ Nécessite addon |
-| **Bytecode protection** | ✅ bytenode natif | ❌ Pas de support |
-| **Obfuscation** | ✅ javascript-obfuscator intégré | ❌ Plugin externe requis |
-| **NSIS personnalisé** | ✅ Template NSIS modifiable | ✅ NSIS support |
-| **UPX compression** | ✅ Optionnel configurable | ❌ Pas de support |
-| **Mode LITE** | ✅ Analyse dépendances | ❌ Pas de support |
-| **Watermarking** | ✅ HMAC + métadonnées build | ❌ Pas de support |
-| **Signature code** | ✅ Auto-signé + custom | ✅ Support |
+| **Chiffrement ressources** | ✅ AES-256 intégré | ❌ Addon requis |
+| **Bytecode protection** | ✅ bytenode natif | ❌ Non |
+| **Mode LITE** | ✅ Analyse dépendances | ❌ Non |
 | **Build reproducible** | ✅ Oui | ⚠️ Partiel |
-| **Courbe apprentissage** | Moyen (modèle Node.js) | Élevé (nombreuses options) |
 
-### Score et recommandations
+**metadidomi-builder** : Optimal pour sécurité maximale, 100% offline, protection bytecode
+**electron-builder** : Optimal pour multi-plateforme, configuration simple, communauté large
 
-**metadidomi-builder** : 9/10 ⭐
-- ✅ Idéal pour applications Electron nécessitant **sécurité maximale**
-- ✅ Parfait pour builds **100% offline** et reproductibles
-- ✅ Excellent pour **protection du code source** (bytecode + obfuscation)
-- ✅ Meilleur choix pour **chiffrement de ressources**
-- ✅ Great for **customization** et intégration CI/CD complexe
-- ⚠️ Requiert Node.js et compréhension du processus de build
-
-**electron-builder** : 7/10 ⭐
-- ✅ Solution standard et éprouvée
-- ✅ Documentation extensive et communauté large
-- ✅ Configuration JSON/YAML simple
-- ✅ Support de multiples plateformes (Mac, Linux)
-- ❌ Moins de contrôle sur les détails du build
-- ❌ Dépendances nombreuses et mises à jour fréquentes
-
-### Recommandations pour développeurs Electron
-
-**Choisir metadidomi-builder si :**
-1. Vous avez besoin de **protection forte du code source**
-2. Vous travaillez dans un environnement **sans accès Internet**
-3. Vous voulez des **builds reproductibles et déterministes**
-4. Vous avez besoin de **chiffrement de ressources**
-5. Vous préférez **contrôler chaque étape** du build
-6. Vous développez une application **sensible** (données, algo propriétaire)
-
-**Choisir electron-builder si :**
-1. Vous avez besoin de build multi-plateformes (Windows, Mac, Linux)
-2. Vous préférez une **configuration simple et rapide**
-3. Vous avez une application **standard** sans besoins spéciaux
-4. Vous voulez des **mises à jour automatiques** (Squirrel)
-5. Vous privilégiez la **stabilité et la compatibilité**
-
-### Conclusion
-**metadidomi-builder** est une solution **premium** pour les équipes ayant des exigences de sécurité élevées et souhaitant maîtriser tous les aspects du processus de construction. Pour les autres projets, electron-builder reste le choix logique et éprouvé.
+👉 **Choisir metadidomi-builder si** : sécurité critique, environnement offline, control total
+👉 **Choisir electron-builder si** : multi-plateforme, setup simple, app standard
 
 ---
 
