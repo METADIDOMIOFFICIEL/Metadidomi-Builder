@@ -4,7 +4,8 @@
 **Windows maintenant, macOS et Linux en développement.**
 
 ---
-
+ ![](/docs/icon.ico) 
+---
 ### 💝 Soutenir le projet
 
 Si ce builder vous a aidé, merci de soutenir le développement :
