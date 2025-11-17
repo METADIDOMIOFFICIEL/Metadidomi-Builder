@@ -18,8 +18,6 @@ Votre soutien permet de:
 - ✅ Améliorer la documentation
 - ✅ Corriger les bugs rapidement
 
-👉 **[Voir toutes les options de soutien →](SUPPORT.md)**
-
 ---
 
 Constructeur professionnel pour applications Electron, Python exigeant une **sécurité maximale**, des **builds reproductibles** et une **customisation totale**. avec des outils embarqués dans le dossier.
