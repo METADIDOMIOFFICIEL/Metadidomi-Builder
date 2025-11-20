@@ -11,25 +11,36 @@
 Si ce builder vous a aidé, merci de soutenir le développement :
 
 [![Sponsor Lygos](https://img.shields.io/badge/Sponsor-Lygos-blue?style=for-the-badge)](https://pay.lygosapp.com/$etsmeta)
-![Version](https://img.shields.io/badge/version-1.1.171125-blue)
+![Version](https://img.shields.io/badge/version-1.1.201125-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Stars](https://img.shields.io/github/stars/METADIDOMIOFFICIEL/Metadidomi-Builder?style=social)
 ![Issues](https://img.shields.io/github/issues/[METADIDOMIOFFICIEL/Metadidomi-BUILDER])
 
 ---
+# �🚀 Multi-Builder Premium
+
+**Builder nouvelle génération** avec chiffrement de ressources, protection bytecode, obfuscation intelligente et prise en charge Python. 
+**Windows maintenant, macOS et Linux en développement.**
+
+[![Sponsor Lygos](https://img.shields.io/badge/Sponsor-Lygos-blue?style=for-the-badge)](https://pay.lygosapp.com/$etsmeta)
+![Version](https://img.shields.io/badge/version-1.4.201125-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Keywords](https://img.shields.io/badge/keywords-electron_python_js_html_css_c_code_installer_protection_obfuscation-blue)
+
+---
+
 ## 📑 Table des Matières
 
 1. **[À Propos](#-à-propos)** - Présentation générale
 2. **[Installation](#-installation)** - Mise en place
-3. **[Démarrage Rapide](#-démarrage-rapide)** - Premiers pas
-4. **[Configuration](#-configuration)** - Personnalisation
-5. **[Modes de Construction](#-modes-de-construction)** - Options de build
-6. **[Gestion des Dépendances](#-gestion-des-dépendances)** - Electron et Python
-7. **[Protection du Code](#-système-de-protection-avancé)** - Sécurité
-8. **[Packaging Python](#-packaging-dapplications-python)** - Applications Python
-9. **[Comparaison](#-comparaison-avec-electron-builder)** - vs electron-builder
-10. **[Roadmap](#-roadmap)** - Futures versions
-11. **[Support](#-support-et-contribution)** - Aide et contact
+3. **[Afficher les Commandes Disponibles](#afficher-toutes-les-commandes-disponibles)** - Liste interactive des commandes
+4. **[Démarrage Rapide Electron](#-démarrage-rapide---applications-electron)** - Premiers pas Electron
+5. **[Modes de Construction](#-modes-de-construction)** - Options de build Electron
+6. **[Protection du Code](#-système-de-protection-avancé)** - Sécurité (Electron et Python)
+7. **[Packaging Python](#-packaging-dapplications-python)** - Applications Python
+8. **[Comparaison vs electron-builder](#-comparaison-avec-electron-builder)** - Différences et choix
+9. **[Roadmap](#-roadmap-vision-multi-plateforme)** - Futures versions
+10. **[Support](#-support)** - Aide et contact
 
 ---
 
@@ -55,29 +66,134 @@ Votre soutien permet de :
 
 ## 🚀 Installation
 
-### Dépendances Minimales
+### Installation via npm (Recommandée)
 
 **Pour le développement :** Seuls `electron@^39.1.1` et Python 3.11+ sont requis.
+[![](https://img.shields.io/badge/info-Commandes%20disponibles-blue)]
 
+### Afficher toutes les commandes disponibles
+
+> **Important :** Avant d'utiliser ces commandes, ajoutez les scripts suivants dans la section `scripts` de votre `package.json` :
+>
+> ```json
+> "help": "node node_modules/metadidomi-builder/build_tools/commands-help.js",
+> "help:electron": "node node_modules/metadidomi-builder/build_tools/commands-help.js --type=electron",
+> "help:python": "node node_modules/metadidomi-builder/build_tools/commands-help.js --type=python",
+> "help:all": "node node_modules/metadidomi-builder/build_tools/commands-help.js --all"
+> ```
+
+Pour voir toutes les commandes adaptées à votre projet (Electron ou Python), utilisez la commande d'aide interactive :
+
+```powershell
+npm run help           # Affiche toutes les commandes disponibles
+npm run help:electron # Affiche uniquement les commandes Electron
+npm run help:python   # Affiche uniquement les commandes Python
+npm run help:all      # Affiche tout (mode universel)
+```
+
+**Exemple d'affichage** :
+```
+> npm run help
+
+─────────────────────────────
+ METADIDOMI BUILDER - COMMANDES DISPONIBLES
+─────────────────────────────
+
+1. BUILD
+  Crée un installateur Windows NSIS professionnel
+  Commande: npm run build
+  Alternatives: npx metadidomi-builder
+  Sortie: ./dist/MonApp-Setup-1.0.0.exe
+
+2. BUILD:PYTHON
+  Build d'application Python en mode console
+  Commande: npm run build:python
+  Alternatives: npx metadidomi-builder-python
+  Sortie: ./dist/MonApp-Setup-1.0.0.exe
+
+...etc
+```
+
+La commande détecte automatiquement le type de projet et affiche les commandes adaptées, avec explications et exemples.
+
+Pour plus d'exemples, consultez la section "Exemples Pratiques" plus bas.
+
+#### Option 1 : Installation dans votre projet
+
+```powershell
+# Installez le builder comme dépendance de développement
+npm install --save-dev metadidomi-builder
+
+# Ajoutez des scripts dans votre package.json
+# "scripts": {
+#   "build": "metadidomi-builder",
+#   "build:lite": "set LITE_BUILD=true && metadidomi-builder",
+#   "build:portable": "set CREATE_PORTABLE_EXE=true && metadidomi-builder",
+#   "build:python": "node node_modules/metadidomi-builder/build_tools_py/builder.py",
+#   "build:python:gui": "node node_modules/metadidomi-builder/build_tools_py/builder.py --gui"
+# }
+
+# Puis lancez avec :
+npm run build                    # Build Electron standard
+# ou
+npm run build:lite              # Build Electron optimisé
+npm run build:portable          # Exécutable portable
+npm run build:python            # Build Python (console)
+npm run build:python:gui        # Build Python (GUI)
+```
+
+#### Option 2 : Utilisation directe avec npx
+
+```powershell
+# Lancez directement sans installation
+npx metadidomi-builder
+```
+
+#### Option 3 : Installation Globale
+
+```powershell
+# Installez globalement
+npm install -g metadidomi-builder
+
+# Lancez depuis n'importe où
+metadidomi-builder
+```
+
+### Installation Manuelle (Avancé)
+
+Si vous préférez installer manuellement :
+
+1. **Clonez le repository**
+```powershell
+git clone https://github.com/METADIDOMIOFFICIEL/Metadidomi-Builder.git
+cd metadidomi-builder
+```
+
+2. **Installez les dépendances**
 ```powershell
 npm install
 ```
-# � INSTALLATION DES DÉPENDANCES VENDOR
 
-Si lors de l'installation le dossier `build_tools/vendor` n'est pas présent, suivez ces instructions :
+3. **Téléchargez les modules vendor** (si absent)
+   - Téléchargez `vendor.zip` depuis :
+     https://github.com/METADIDOMIOFFICIEL/Metadidomi-Builder/releases/download/1.3.171125/vendor.zip
+   - Extrayez dans `build_tools/vendor/`
 
-. Téléchargez le fichier `vendor.zip` depuis :
-  https://github.com/METADIDOMIOFFICIEL/Metadidomi-Builder/releases/download/1.3.171125/vendor.zip
+4. **Lancez le builder**
+```powershell
+# Depuis le dossier d'installation
+node build_tools/builder.js
 
-💡 **Suite** :
-Vous pouvez aussi extraire manuellement le contenu de `vendor.zip` dans le dossier `build_tools/vendor`.
+# Ou depuis votre app (en spécifiant le chemin)
+node "C:\chemin-vers\metadidomi-builder\build_tools\builder.js"
+```
 
 ### Modules Embarqués - 100% Offline
 
-Toutes les dépendances essentielles sont incluses dans `build_tools/vendor/` :
+Toutes les dépendances essentielles sont incluses dans `node_modules/metadidomi-builder/build_tools/vendor/` (installation npm) ou `build_tools/vendor/` (installation manuelle) :
 
 ```
-build_tools/vendor/
+build_tools/vendor/ (ou node_modules/metadidomi-builder/build_tools/vendor/)
   ├── asar/                    # Packaging et archivage
   ├── bytenode/                # Compilation JavaScript → bytecode V8
   ├── electron-asar/           # ASAR officiel Electron
@@ -105,22 +221,26 @@ Le builder intègre un **système automatique de signature** avec deux modes :
 
 #### Mode 1 : Auto-signé (Défaut - Développement)
 - ✅ Généré automatiquement lors du premier build
-- 📁 Stocké dans `build_tools/certs/cert-[hash].pfx`
-- 🔑 Mot de passe dans `build_tools/certs/cert-[hash].key`
+- 📁 Stocké dans `node_modules/metadidomi-builder/build_tools/certs/cert-[hash].pfx` (npm) ou `build_tools/certs/cert-[hash].pfx` (manuel)
+- 🔑 Mot de passe dans `cert-[hash].key`
 - ⚡ Aucune configuration requise
 
 #### Mode 2 : Certificat Personnalisé (Production)
 
 ```powershell
 # Option 1 : Fichier dans le dossier par défaut
-# Placer: build_tools/certs/signing.pfx
+# Npm: Placer dans node_modules/metadidomi-builder/build_tools/certs/signing.pfx
+# Manuel: Placer dans build_tools/certs/signing.pfx
 
 # Option 2 : Variables d'environnement
 $env:PFX_PATH="chemin/vers/certificat.pfx"
 $env:PFX_PASS="mot-de-passe-certificat"
 
-# Lancer le build
-node build_tools/builder.js
+# Lancer le build avec npm
+npm run build
+
+# Ou avec npx
+npx metadidomi-builder
 ```
 
 **Priorité de signature :**
@@ -131,16 +251,46 @@ node build_tools/builder.js
 
 ---
 
+[⬆️ Retour en haut](#-multi-builder-premium)
+
 ## ⚡ Démarrage Rapide
 
-### Pour les Pressés (< 5 min)
+### Pour les Pressés (< 5 min) - Installation npm
+
+```powershell
+# 1. Installez le builder
+npm i metadidomi-builder
+
+# 2. Lancez le builder
+npm run build
+
+# 3. C'est tout ! ✅
+# Résultat: ./dist/MonApp-Setup-1.0.0.exe
+```
+
+**OU directement avec npx :**
 
 ```powershell
 # 1. Allez dans votre dossier d'application
 cd D:\mon-app
 
-# 2. Lancez le builder
-node D:\chemin-vers\metadidomi-builder\build_tools\builder.js
+# 2. Lancez le builder directement
+npx metadidomi-builder
+
+> **À savoir :**
+
+# 3. C'est tout ! ✅
+# Résultat: ./dist/MonApp-Setup-1.0.0.exe
+```
+
+### Alternative : Installation Manuelle
+
+```powershell
+# 1. Allez dans votre dossier d'application
+cd D:\mon-app
+
+# 2. Lancez le builder manuellement
+node "C:\chemin-vers\metadidomi-builder\build_tools\builder.js"
 
 # 3. C'est tout ! ✅
 # Résultat: ./dist/MonApp-Setup-1.0.0.exe
@@ -156,6 +306,94 @@ mon-app/
 ```
 
 **Si aucun fichier n'existe, le builder génère une application de démo complète et fonctionnelle !** 🎉
+
+### ⚠️ Éviter les Boucles Infinies de Build
+
+**IMPORTANT :** Configurez correctement votre `package.json` pour éviter que le builder relance indéfiniment des builds.
+
+#### ❌ MAUVAIS - Créé une boucle infinie
+
+```json
+{
+  "name": "mon-app",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "npm run build",
+    "build": "metadidomi-builder"
+  }
+}
+```
+
+**Problème :** `npm run build` → `metadidomi-builder` → (re)crée `package.json` → retrigger scripts → boucle infinie ❌
+
+#### ✅ BON - Structure Correcte
+
+```json
+{
+  "name": "mon-app",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
+    "build": "metadidomi-builder",
+    "build:lite": "set LITE_BUILD=true && metadidomi-builder",
+    "build:portable": "set CREATE_PORTABLE_EXE=true && metadidomi-builder"
+  },
+  "dependencies": {
+    "electron": "^31.0.0"
+  }
+}
+```
+
+**Points clés :**
+- ✅ `"start"` lance **Electron**, pas le builder
+- ✅ `"build"` lance **SEULEMENT** le builder
+- ✅ Les scripts ne s'appellent pas mutuellement
+- ✅ Pas de hook `prestart` ou `postinstall` qui relancerait build
+- ✅ Le builder ne modifie PAS le package.json existant
+
+#### 🛡️ Règles de Sécurité pour npm scripts
+
+| Script | Doit faire | Doit PAS faire |
+|--------|-----------|---|
+| `start` | Lancer Electron ou l'app | Lancer le builder |
+| `build` | Lancer le builder | Lancer d'autres scripts |
+| `dev` | Mode développement Electron | Lancer le builder |
+| `test` | Exécuter les tests | Lancer le builder |
+
+#### 🔒 Protéger votre package.json
+
+**Ne pas ajouter ces hooks dangereux :**
+
+```json
+{
+  "scripts": {
+    "prestart": "npm run build",      // ❌ DANGER: boucle
+    "postinstall": "npm run build",   // ❌ DANGER: boucle
+    "prepare": "npm run build"        // ❌ DANGER: boucle
+  }
+}
+```
+
+#### ✅ Alternative Sûre : Scripts Séparés
+
+Si vous voulez build ET lancer, créez deux scripts distincts :
+
+```json
+{
+  "scripts": {
+    "build": "metadidomi-builder",
+    "start": "electron .",
+    "build-and-run": "npm run build && npm start"
+  }
+}
+```
+
+**Utilisation :**
+```powershell
+npm run build-and-run  # ✅ Build PUIS lance l'app (une fois seulement)
+```
 
 ---
 
@@ -292,7 +530,11 @@ axios.get('https://api.example.com/data')
 
 ### 2. Tester Localement Avant de Packager
 ```powershell
-# Python
+# Python - Installation npm
+.\node_modules\metadidomi-builder\build_tools\vendor\python_embeddable\python.exe -m pip install -r requirements.txt
+python __main__.py
+
+# Python - Installation manuelle
  .\build_tools\vendor\python_embeddable\python.exe -m pip install -r requirements.txt
 python __main__.py
 
@@ -328,6 +570,19 @@ import numpy as np
 
 ### Python
 
+**Installation npm :**
+```powershell
+# Voir les dépendances qui peuvent être mises à jour
+.\node_modules\metadidomi-builder\build_tools\vendor\python_embeddable\python.exe -m pip list --outdated
+
+# Mettre à jour une dépendance
+.\node_modules\metadidomi-builder\build_tools\vendor\python_embeddable\python.exe -m pip install --upgrade requests
+
+# Mettre à jour tous les packages
+.\node_modules\metadidomi-builder\build_tools\vendor\python_embeddable\python.exe -m pip install --upgrade -r requirements.txt
+```
+
+**Installation manuelle :**
 ```powershell
 # Voir les dépendances qui peuvent être mises à jour
  .\build_tools\vendor\python_embeddable\python.exe -m pip  list --outdated
@@ -360,8 +615,21 @@ npm update
 
 #### ⭐ Standard (Défaut) - Installateur NSIS
 
+**Avec npm :**
 ```powershell
-node build_tools/builder.js
+npm run build
+# Résultat: ./dist/MonApp-Setup-1.0.0.exe
+```
+
+**Avec npx :**
+```powershell
+npx metadidomi-builder
+# Résultat: ./dist/MonApp-Setup-1.0.0.exe
+```
+
+**Manuel :**
+```powershell
+node node_modules/metadidomi-builder/build_tools/builder.js
 # Résultat: ./dist/MonApp-Setup-1.0.0.exe
 ```
 
@@ -369,9 +637,15 @@ Crée un **installateur professionnel** avec options d'installation, raccourcis,
 
 #### 💾 Portable - Exécutable Autonome
 
+**Avec npm :**
 ```powershell
-$env:CREATE_PORTABLE_EXE="true"
-node build_tools/builder.js
+$env:CREATE_PORTABLE_EXE="true"; npm run build
+# Résultat: ./dist/MonApp.exe (portable, ~130MB)
+```
+
+**Avec npx :**
+```powershell
+$env:CREATE_PORTABLE_EXE="true"; npx metadidomi-builder
 # Résultat: ./dist/MonApp.exe (portable, ~130MB)
 ```
 
@@ -379,9 +653,9 @@ Exécutable indépendant sans installation requise.
 
 #### ⚡ LITE - Mode Optimisé
 
+**Avec npm :**
 ```powershell
-$env:LITE_BUILD="true"
-node build_tools/builder.js
+$env:LITE_BUILD="true"; npm run build
 # Résultat: ./dist/MonApp-Setup-1.0.0.exe (optimisé)
 # Rapport: electron-lite-deps-report.txt
 ```
@@ -390,46 +664,52 @@ Analyse et exclut automatiquement les modules inutiles. Génère un rapport dét
 
 #### 🚫 Sans Installateur
 
+**Avec npm :**
 ```powershell
-$env:SKIP_INSTALLER="true"
-node build_tools/builder.js
+$env:SKIP_INSTALLER="true"; npm run build
 # Résultat: Ressources de base seulement
 ```
 
 #### 🔐 Avec Chiffrement
 
+**Avec npm :**
 ```powershell
-$env:KEY="votre-clé-secrète"
-node build_tools/builder.js
+$env:KEY="votre-clé-secrète"; npm run build
+```
+
+**Avec npx :**
+```powershell
+$env:KEY="votre-clé-secrète"; npx metadidomi-builder
 ```
 
 #### ⚙️ Compression UPX (Optionnelle)
 
+**Mode rapide (recommandé) :**
 ```powershell
-# Mode rapide (recommandé)
-$env:USE_UPX="true"
-node build_tools/builder.js
+$env:USE_UPX="true"; npm run build
+```
 
-# Mode ultra-brute (très lent, gain maximal)
-$env:USE_UPX="true"
-$env:UPX_ULTRA_BRUTE="true"
-node build_tools/builder.js
+**Mode ultra-brute (très lent, gain maximal) :**
+```powershell
+$env:USE_UPX="true"; $env:UPX_ULTRA_BRUTE="true"; npm run build
 ```
 
 #### 🔗 Combinaisons Utiles
 
+**Portable + LITE + Chiffrement :**
 ```powershell
-# Portable + LITE + Chiffrement
 $env:CREATE_PORTABLE_EXE="true"
 $env:LITE_BUILD="true"
 $env:KEY="clé-secrète"
-node build_tools/builder.js
+npm run build
+```
 
-# Avec UPX + Signature personnalisée
+**Avec UPX + Signature personnalisée :**
+```powershell
 $env:USE_UPX="true"
 $env:PFX_PATH="cert.pfx"
 $env:PFX_PASS="mot-de-passe"
-node build_tools/builder.js
+npm run build
 ```
 
 ### Paramètres Avancés
@@ -520,37 +800,25 @@ mon-app/
 
 Le builder intègre un **système complet de protection du code** avec obfuscation intelligente, chiffrement multi-couches, et anti-analyse.
 
-### Deux Modes de Protection
-
-**Mode Interactif** - Questions guidées pour chaque protection
-```powershell
-cd metadidomi-builder/build_tools_py/pyMetadidomi
-python pyMetadidomi.py
-```
-
-**Mode CLI** - Automatisé avec arguments
-```powershell
-# Presets rapides
-python pyMetadidomi.py script.py --light-protection      # Léger
-python pyMetadidomi.py script.py --medium-protection     # Moyen
-python pyMetadidomi.py script.py --heavy-protection      # Maximal
-
-# Options individuelles
-python pyMetadidomi.py script.py --carbon                 # Obfuscation
-python pyMetadidomi.py script.py --junk                   # Code parasite
-python pyMetadidomi.py script.py --anti-vm                # Anti-VM
-python pyMetadidomi.py script.py --multi-encrypt          # Chiffrement multi-couches
-```
-
 ### Protection pour Electron
 
+**Avec npm :**
 ```powershell
-node build_tools/builder.js --light-protection
-node build_tools/builder.js --medium-protection
-node build_tools/builder.js --heavy-protection
+npm run build -- --light-protection
+npm run build -- --medium-protection
+npm run build -- --heavy-protection
 ```
 
-👉 **[📖 Documentation complète des protections →](build_tools_py/PROTECTION_COMMANDS.md)**
+**Avec npx :**
+```powershell
+npx metadidomi-builder --light-protection
+npx metadidomi-builder --medium-protection
+npx metadidomi-builder --heavy-protection
+```
+
+**Remarque :** Pour les projets Python, voir la section [Protection du Code Python](#niveaux-de-protection-du-code-python).
+
+👉 **[📖 Documentation complète des protections →](node_modules/metadidomi-builder/build_tools_py/PROTECTION_COMMANDS.md)**
 
 ## Construction LITE (optimisation)
 ```powershell
@@ -562,20 +830,22 @@ Génère un rapport `electron-lite-deps-report.txt` avec les modules analysés.
 ## Clé de Chiffrement Personnalisée
 ```powershell
 $env:KEY="votre-clé-secrète"
-node build_tools/builder.js
+npm run build
 ```
 Si non défini, une clé est générée automatiquement.
 
 ## Compression UPX
+**Mode rapide (défaut) :**
 ```powershell
-# Mode rapide (défaut)
 $env:USE_UPX="true"
-node build_tools/builder.js
+npm run build
+```
 
-# Mode ultra-brute (très lent)
+**Mode ultra-brute (très lent) :**
+```powershell
 $env:USE_UPX="true"
 $env:UPX_ULTRA_BRUTE="true"
-node build_tools/builder.js
+npm run build
 ```
 
 ---
@@ -620,19 +890,83 @@ Builder (compile, chiffre, empaque, signe)
 
 ## 📝 Exemples Pratiques
 
+### Installation npm + Utilisation - Electron
+
+**Exemple 1 : Setup complet avec tous les scripts npm**
+
 ```powershell
-# Mode simple (depuis votre app)
-cd D:\MonApp
-node C:\metadidomi-builder\build_tools\builder.js
+# Installez le builder
+npm i metadidomi-builder
 
-# Avec source et sortie personnalisées
-node build_tools/builder.js --app-src D:\mon-app --output D:\dist
+# Ajoutez les scripts à votre package.json:
+# "scripts": {
+#   "start": "electron .",
+#   "dev": "electron .",
+#   "build": "metadidomi-builder",
+#   "build:lite": "set LITE_BUILD=true && metadidomi-builder",
+#   "build:portable": "set CREATE_PORTABLE_EXE=true && metadidomi-builder",
+#   "build:encrypted": "set KEY=ma-cle-secrete && metadidomi-builder",
+#   "build-and-run": "npm run build && echo Build complete!"
+# }
 
-# Avec chiffrement
-$env:KEY="ma-clé-secrète"
-node build_tools/builder.js --app-src C:\MonApp
+# Puis lancez avec :
+npm run build              # Build standard → ./dist/MonApp-Setup-1.0.0.exe
+npm run build:lite         # Build optimisé → ./dist/MonApp-Setup-1.0.0.exe
+npm run build:portable     # Exécutable portable → ./dist/MonApp.exe
+npm run build:encrypted    # Avec clé → ./dist/MonApp-Setup-1.0.0.exe (chiffré)
+npm run build-and-run      # Build puis message
+```
 
-# Portable + LITE + UPX
+**Exemple 2 : Avec options avancées dans package.json**
+
+```json
+{
+  "name": "mon-app-electron",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
+    "build": "metadidomi-builder",
+    "build:lite": "set LITE_BUILD=true && metadidomi-builder",
+    "build:portable": "set CREATE_PORTABLE_EXE=true && metadidomi-builder",
+    "build:upx": "set USE_UPX=true && metadidomi-builder",
+    "build:full": "set CREATE_PORTABLE_EXE=true && set LITE_BUILD=true && set USE_UPX=true && metadidomi-builder",
+    "build:protected": "set LITE_BUILD=true && metadidomi-builder --medium-protection"
+  },
+  "dependencies": {
+    "electron": "^31.0.0"
+  }
+}
+```
+
+**Exemple 3 : Avec npx (sans installation)**
+
+```powershell
+npx metadidomi-builder                    # Build standard
+npx metadidomi-builder --light-protection # Build avec protection légère
+npx metadidomi-builder --medium-protection # Build avec protection moyenne
+```
+
+npm run build
+# Résultat: ./dist/MonApp-Setup-1.0.0.exe
+```
+
+**Exemple 2 : Avec npx (sans installation)**
+```powershell
+npx metadidomi-builder
+# Résultat: ./dist/MonApp-Setup-1.0.0.exe
+```
+
+**Exemple 3 : Avec options personnalisées**
+```powershell
+npm run build -- --light-protection
+# Ou
+$env:KEY="ma-clé-secrète"; npm run build
+```
+
+**Exemple 4 : Portable + LITE + UPX**
+```powershell
 $env:CREATE_PORTABLE_EXE="true"
 $env:LITE_BUILD="true"
 $env:USE_UPX="true"
@@ -698,11 +1032,6 @@ L'injection ajoute automatiquement :
 - Gestion des erreurs de sécurité
 
 ---
-
-## 📊 Comparaison avec electron-builder
-- Options d'obfuscation sûres et compatibles
-- Pas de transformation agressive du code
-- Préserve la stabilité de l'application
 
 ### 📊 Protection multiniveau
 Cette approche assure :
@@ -1092,43 +1421,105 @@ L'empaquetage récursif est optimisé pour :
 | **Chiffrement ressources** | ✅ AES-256 intégré | ❌ Addon requis |
 | **Bytecode protection** | ✅ bytenode natif | ❌ Non |
 | **Mode LITE** | ✅ Analyse dépendances | ❌ Non |
-| **Build reproducible** | ✅ Oui | ⚠️ Partiel |
+| **Build reproducible** | ✅ 100% déterministe | ⚠️ Partiel |
+| **Packaging Python** | ✅ Oui (NSIS + obfuscation) | ❌ Non |
+| **Protection code Python** | ✅ pyMetadidomi (light/medium/heavy) | ❌ Non |
+| **Multi-plateforme** | ⏳ Q1-2026 (macOS/Linux) | ✅ Windows/macOS/Linux |
+| **Communauté** | 🆕 En croissance | ✅ Très large |
+| **Support commercial** | ✅ Direct (ETS METADIDOMI) | ✅ Communauté + sponsors |
 
-**metadidomi-builder** : Optimal pour sécurité maximale, 100% offline, protection bytecode
-**electron-builder** : Optimal pour multi-plateforme, configuration simple, communauté large
+### 🎯 Tableau Récapitulatif
 
-👉 **Choisir metadidomi-builder si** : sécurité critique, environnement offline, control total
-👉 **Choisir electron-builder si** : multi-plateforme, setup simple, app standard
+**metadidomi-builder** : 
+- ✅ **Sécurité maximale** - AES-256, bytecode, obfuscation pyMetadidomi
+- ✅ **100% offline** - Zéro dépendance externe, tous les outils embarqués
+- ✅ **Builds reproductibles** - Déterministe et versionnable
+- ✅ **Python support** - Applications Python complètes avec installateurs NSIS
+- ⏳ **Multi-plateforme** - Windows maintenant, macOS/Linux 2026
+
+**electron-builder** :
+- ✅ **Multi-plateforme établi** - Windows, macOS, Linux, AppImage, Snap
+- ✅ **Configuration simple** - Template facile à adapter
+- ✅ **Communauté large** - Nombreuses extensions et plugins
+- ⚠️ **Dépendances réseau** - Nécessite téléchargements externe
+- ❌ **Python non supporté** - Electron uniquement
+
+### 💡 Comment Choisir?
+
+**Utilisez metadidomi-builder si vous avez besoin de :**
+- 🔐 Sécurité critique (finance, santé, militaire)
+- 📦 Packaging Python standalone avec installateur professionnel
+- 🔒 Obfuscation et protection du code (anti-reverse engineering)
+- 🚫 Environnement complètement offline
+- ⚙️ Contrôle total sur le processus de build
+
+**Utilisez electron-builder si vous avez besoin de :**
+- 🖥️ Multi-plateforme stable et mature
+- 🚀 Setup rapide et facile (peu de configuration)
+- 👥 Accès à une large communauté et d'extensions
+- 📱 Support macOS/Linux dès maintenant
+- 🔄 Updates automatiques intégrées
 
 ---
+
+[⬆️ Retour en haut](#-multi-builder-premium)
 
 ## � Packaging d'Applications Python
 
 Le builder inclut aussi un **système complet de packaging Python** via `builder.py` pour créer des applications Windows standalone avec installateurs NSIS professionnels.
 
+
 ### 🚀 Démarrage Rapide - Applications Python
 
-**Le plus simple** - Exécutez le builder Python depuis votre dossier d'application :
+**Option 1 : Via npm (Recommandée)**
 
 ```powershell
-# Depuis votre répertoire d'application Python
-cd D:\mon-app-python
-python D:\chemin-vers\metadidomi-builder\build_tools_py\builder.py
+# Installez le builder
+npm i metadidomi-builder
 
+# Ajoutez des scripts dans votre package.json
+# "scripts": {
+#   "build:python": "python node_modules\\metadidomi-builder\\build_tools_py\\builder.py --app-src ./src",
+#   "build:python:gui": "python node_modules\\metadidomi-builder\\build_tools_py\\builder.py --gui --app-src ./src"
+# }
+
+# Puis lancez avec :
+npm run build:python           # Mode console (par défaut)
+# Résultat: ./dist/MonApp-Setup-1.0.0.exe
+
+# OU
+npm run build:python:gui       # Mode GUI (sans console)
 # Résultat: ./dist/MonApp-Setup-1.0.0.exe
 ```
 
-**Ou avec options personnalisées :**
+> **Astuce :** Placez toujours vos sources Python dans un dossier `src/` et ajoutez l’option `--app-src ./src` à vos scripts dans le `package.json`. Cela évite les erreurs de scan des dossiers `node_modules` et `vendor` (chemins trop longs ou fichiers manquants).
+> Placez vos fichiers sources Python (`config.py`, `__main__.py`, etc.) dans un dossier séparé (ex : `src/`).
+> Puis lancez le build en précisant le chemin source :
+> ```powershell
+> npm run build:python -- --app-src ./src
+> ```
+> Cela évite que le builder scanne le dossier `node_modules` et les vendors, et prévient les erreurs de chemin trop long ou manquant.
+
+**Option 2 : Avec npx (sans installation)**
 
 ```powershell
-# Source et sortie personnalisées
-python builder.py --app-src D:\mon-app --output D:\dist
+npx metadidomi-builder-python
+# Résultat: ./dist/MonApp-Setup-1.0.0.exe
+```
+
+**Option 3 : Installation Manuelle**
+
+```powershell
+# Mode console simple
+node "C:\chemin-vers\metadidomi-builder\build_tools_py\builder.py"
+# Résultat: ./dist/MonApp-Setup-1.0.0.exe
 
 # Mode GUI (sans fenêtre console)
-python builder.py --gui
+node "C:\chemin-vers\metadidomi-builder\build_tools_py\builder.py" --gui
+# Résultat: ./dist/MonApp-Setup-1.0.0.exe
 
-# Combiné
-python builder.py --app-src D:\mon-app --output D:\dist --gui
+# Avec source et sortie personnalisées
+node "C:\chemin-vers\metadidomi-builder\build_tools_py\builder.py" --app-src D:\mon-app --output D:\dist --gui
 ```
 
 ### 📋 Structure Minimale d'une Application Python
@@ -1348,7 +1739,9 @@ Le builder utilise **Python Embeddable** pour les utilisateurs finaux :
 - ✅ Distribution portable
 - ✅ Inclus dans l'installateur NSIS
 
-**Localisation :** `build_tools/vendor/python_embeddable/`
+**Localisation :**
+- Installation npm : `node_modules/metadidomi-builder/build_tools/vendor/python_embeddable/`
+- Installation manuelle : `build_tools/vendor/python_embeddable/`
 
 ### 🔐 Protection du Code Python
 
@@ -1371,6 +1764,24 @@ Le builder utilise **Python Embeddable** pour les utilisateurs finaux :
    - Code Python injecté dynamiquement
    - Exécution directe sans interpréteur externe
 
+#### Niveaux de protection du code Python
+
+Vous pouvez protéger votre code Python lors du build avec différents niveaux de protection :
+
+```powershell
+npm run build:python -- --app-src ./src --light-protection
+npm run build:python:gui -- --app-src ./src --medium-protection
+npm run build:python -- --app-src ./src --heavy-protection
+```
+
+**Options de protection :**
+
+- `--light-protection` : Obfuscation légère (carbon + junk)
+- `--medium-protection` : Obfuscation moyenne (carbon + junk + bugs + dead-code)
+- `--heavy-protection` : Protection maximale (toutes les options)
+
+**Remarque :** Ces options ne concernent que les projets Python. Pour Electron, voir la section correspondante.
+
 ### 📊 Fichiers Générés
 
 ```
@@ -1389,54 +1800,59 @@ dist/
 
 #### Exemple 1 : Application Console Simple
 
+**Avec npm :**
 ```powershell
 # Structure
 mon-app/
-  config.py
-  __main__.py
+  src/
+    config.py
+    __main__.py
 
 # Build
 cd mon-app
-python ..\builder.py
+npm run build:python -- --app-src ./src
 # Résultat: ./dist/MonApp-Setup-1.0.0.exe
 ```
 
 #### Exemple 2 : Application Tkinter GUI
 
+**Avec npm :**
 ```powershell
 # Structure
 mon-app-gui/
-  config.py
-  __main__.py         ← Interface Tkinter
-  assets/
-    icon.ico
+  src/
+    config.py
+    __main__.py         ← Interface Tkinter
+    assets/
+      icon.ico
 
 # Build (mode GUI pour éviter console)
-cd mon-app-gui
-python ..\..\builder.py --gui
+npm run build:python:gui -- --app-src ./src
 # Résultat: ./dist/MonApp-Setup-1.0.0.exe (pas de console)
 ```
 
 #### Exemple 3 : Application Complexe Multi-Fichiers
 
+**Avec npm :**
 ```powershell
 # Structure complexe
 mon-app/
-  config.py
-  __main__.py
-  utils/
-    helpers.py
-    validators.py
-  lib/
-    core.py
-    handlers/
-      events.py
-  assets/
-    icon.ico
-    data.json
+  src/
+    config.py
+    __main__.py
+    utils/
+      helpers.py
+      validators.py
+    lib/
+      core.py
+      handlers/
+        events.py
+    assets/
+      icon.ico
+      data.json
 
-# Build avec sortie personnalisée
-python builder.py --app-src D:\mon-app --output D:\dist
+# Build
+npm run build:python -- --app-src ./src
 # TOUS les fichiers récursivement inclus ✅
 ```
 
@@ -1444,30 +1860,52 @@ python builder.py --app-src D:\mon-app --output D:\dist
 
 #### Avec Clé de Chiffrement Personnalisée
 
+**Avec npm :**
+```powershell
+# Via variable d'environnement
+$env:KEY = "ma-clé-secrète-32-caractères"
+npm run build:python -- --app-src ./src
+```
+
+**Manuel :**
 ```powershell
 # Option 1: Via argument
-python builder.py --key "ma-clé-secrète-32-caractères"
+node build_tools_py/builder.py --app-src ./src --key "ma-clé-secrète-32-caractères"
 
 # Option 2: Via variable d'environnement
 $env:KEY = "ma-clé-secrète-32-caractères"
-python builder.py
+node build_tools_py/builder.py --app-src ./src
 ```
 
 #### Sans Compilation .pyc
 
+**Avec npm :**
+
 ```powershell
-python builder.py --no-pyc
+npm run build:python -- --no-pyc --app-src ./src
+```
+
+**Manuel :**
+```powershell
+node build_tools_py/builder.py --app-src ./src --no-pyc
 # Les .py restent non compilés (plus rapide au build)
 ```
 
 #### Combinaisons
 
+**Avec npm :**
 ```powershell
-# GUI + sortie personnalisée + clé custom
-python builder.py --gui --output D:\dist --key "clé-secrète"
+# GUI + clé custom
+$env:KEY = "clé-secrète"; npm run build:python:gui -- --app-src ./src
+```
+
+**Manuel :**
+```powershell
+# GUI + clé custom
+node build_tools_py/builder.py --app-src ./src --gui --key "clé-secrète"
 
 # Source custom + GUI + sans .pyc
-python builder.py --app-src D:\mon-app --gui --no-pyc
+node build_tools_py/builder.py --app-src D:\mon-app --gui --no-pyc
 ```
 
 ### 🔍 Dépistage et Débogage
@@ -1570,6 +2008,8 @@ Pour les questions sur le packaging Python :
 
 ---
 
+[⬆️ Retour en haut](#-multi-builder-premium)
+
 ## �🗺️ Roadmap - Vision Multi-Plateforme
 
 ### Phase 1 : Windows ✅ (Actuelle)
@@ -1609,3 +2049,4 @@ Pour les questions sur le packaging Python :
 Pour rapporter des bugs, suggérer des features ou contribuer : consultez les guidelines de contribution.
 
 ---
+
