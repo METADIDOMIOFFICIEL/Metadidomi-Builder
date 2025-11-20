@@ -22,11 +22,6 @@ Si ce builder vous a aidé, merci de soutenir le développement :
 **Builder nouvelle génération** avec chiffrement de ressources, protection bytecode, obfuscation intelligente et prise en charge Python. 
 **Windows maintenant, macOS et Linux en développement.**
 
-[![Sponsor Lygos](https://img.shields.io/badge/Sponsor-Lygos-blue?style=for-the-badge)](https://pay.lygosapp.com/$etsmeta)
-![Version](https://img.shields.io/badge/version-1.4.201125-blue)
-![License](https://img.shields.io/badge/license-MIT-green)
-![Keywords](https://img.shields.io/badge/keywords-electron_python_js_html_css_c_code_installer_protection_obfuscation-blue)
-
 ---
 
 ## 📑 Table des Matières
