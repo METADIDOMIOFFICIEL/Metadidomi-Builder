@@ -1,0 +1,13 @@
+{
+  "appName": "CounterApp",
+  "appVersion": "1.0.0",
+  "appDescription": "Application simple de compteur avec incrémentation et décrémentation",
+  "packageName": "com.example.counterapp",
+  "minSdkVersion": 21,
+  "targetSdkVersion": 34,
+  "colors": {
+    "primary": "#2196F3",
+    "primaryDark": "#1976D2",
+    "accent": "#FF5722"
+  }
+}
