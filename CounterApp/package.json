@@ -1,0 +1,23 @@
+{
+  "name": "counterapp-local-builder",
+  "version": "1.0.0",
+  "description": "CounterApp with local metadidomi-builder installation",
+  "main": "build_tools/build_apk.js",
+  "scripts": {
+    "build": "node node_modules/metadidomi-builder/build_tools/build_apk.js .",
+    "build-debug": "node node_modules/metadidomi-builder/build_tools/build_apk.js . --fail-on-missing",
+    "build-restore": "node node_modules/metadidomi-builder/build_tools/build_apk.js . --restore",
+    "build-icons": "node node_modules/metadidomi-builder/build_tools/generate-icons.js ."
+  },
+  "keywords": [
+    "android",
+    "apk",
+    "builder"
+  ],
+  "author": "Metadidomi",
+  "license": "MIT",
+  "dependencies": {
+    "metadidomi-builder": "file:../metadidomi-builder",
+    "sharp": "^0.32.0"
+  }
+}
