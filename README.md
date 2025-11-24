@@ -21,32 +21,6 @@ Si ce builder vous a aidé, merci de soutenir le développement :
 
 **Builder nouvelle génération** avec chiffrement de ressources, protection bytecode, obfuscation intelligente et prise en charge Python. 
 **Windows maintenant, macOS et Linux en développement.**
-
----
-
-## 📑 Table des Matières
-
-1. **[À Propos](#-à-propos)** - Présentation générale
-2. **[Installation](#-installation)** - Mise en place
-3. **[Afficher les Commandes Disponibles](#afficher-toutes-les-commandes-disponibles)** - Liste interactive des commandes
-4. **[Démarrage Rapide Electron](#-démarrage-rapide---applications-electron)** - Premiers pas Electron
-5. **[Modes de Construction](#-modes-de-construction)** - Options de build Electron
-6. **[Protection du Code](#-système-de-protection-avancé)** - Sécurité (Electron et Python)
-7. **[Packaging Python](#-packaging-dapplications-python)** - Applications Python
-8. **[Comparaison vs electron-builder](#-comparaison-avec-electron-builder)** - Différences et choix
-9. **[Roadmap](#-roadmap-vision-multi-plateforme)** - Futures versions
-10. **[Support](#-support)** - Aide et contact
-
----
-# �🚀 Multi-Builder Premium
-
-**Builder nouvelle génération** avec chiffrement de ressources, protection bytecode, obfuscation intelligente et prise en charge Python. 
-**Windows maintenant, macOS et Linux en développement.**
-
-[![Sponsor Lygos](https://img.shields.io/badge/Sponsor-Lygos-blue?style=for-the-badge)](https://pay.lygosapp.com/$etsmeta)
-![Version](https://img.shields.io/badge/version-1.1.171125-blue)
-![License](https://img.shields.io/badge/license-MIT-green)
-
 ---
 
 ## 📑 Table des Matières
