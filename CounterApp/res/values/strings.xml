@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">CounterApp</string>
+    <string name="app_version">1.0.0</string>
+    <string name="app_description">Application de compteur</string>
+    <string name="hello_world">Bienvenue dans CounterApp</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="back">Retour</string>
+    <string name="forward">Suivant</string>
+    <string name="reload">Recharger</string>
+    <string name="fragment2">Favoris</string>
+    <string name="fragment3">Historique</string>
+    <string name="open_second">Ouvrir</string>
+    <string name="app_title">Compteur</string>
+    <string name="btn_increment">+1</string>
+    <string name="btn_decrement">-1</string>
+    <string name="btn_reset">Réinitialiser</string>
+    <string name="info_text">Appuyez sur les boutons pour incrémenter, décrémenter ou réinitialiser</string>
+</resources>
