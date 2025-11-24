@@ -11,7 +11,7 @@
 Si ce builder vous a aidé, merci de soutenir le développement :
 
 [![Sponsor Lygos](https://img.shields.io/badge/Sponsor-Lygos-blue?style=for-the-badge)](https://pay.lygosapp.com/$etsmeta)
-![Version](https://img.shields.io/badge/version-1.4.201125-blue)
+![Version](https://img.shields.io/badge/version-1.5.2011250429-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Stars](https://img.shields.io/github/stars/METADIDOMIOFFICIEL/Metadidomi-Builder?style=social)
 ![Issues](https://img.shields.io/github/issues/[METADIDOMIOFFICIEL/Metadidomi-BUILDER])
@@ -38,10 +38,37 @@ Si ce builder vous a aidé, merci de soutenir le développement :
 10. **[Support](#-support)** - Aide et contact
 
 ---
+# �🚀 Multi-Builder Premium
+
+**Builder nouvelle génération** avec chiffrement de ressources, protection bytecode, obfuscation intelligente et prise en charge Python. 
+**Windows maintenant, macOS et Linux en développement.**
+
+[![Sponsor Lygos](https://img.shields.io/badge/Sponsor-Lygos-blue?style=for-the-badge)](https://pay.lygosapp.com/$etsmeta)
+![Version](https://img.shields.io/badge/version-1.1.171125-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+
+---
+
+## 📑 Table des Matières
+
+1. **[À Propos](#-à-propos)** - Présentation générale
+2. **[Installation](#-installation)** - Mise en place
+3. **[Démarrage Rapide](#-démarrage-rapide)** - Premiers pas
+4. **[Configuration](#-configuration)** - Personnalisation
+5. **[Modes de Construction](#-modes-de-construction)** - Options de build
+6. **[Gestion des Dépendances](#-gestion-des-dépendances)** - Electron et Python
+7. **[Protection du Code](#-système-de-protection-avancé)** - Sécurité
+8. **[Packaging Python](#-packaging-dapplications-python)** - Applications Python
+9. **[Packaging Android](#-packaging-dapplications-android)** - Applications Android APK
+10. **[Comparaison](#-comparaison-avec-electron-builder)** - vs electron-builder
+11. **[Roadmap](#-roadmap)** - Futures versions
+12. **[Support](#-support-et-contribution)** - Aide et contact
+
+---
 
 ## 💝 À Propos
 
-Constructeur **professionnel** pour applications Electron et Python exigeant :
+Constructeur **professionnel** pour applications Electron et Python, Android exigeant :
 - ✅ **Sécurité maximale** - Chiffrement AES-256, bytecode, obfuscation
 - ✅ **Builds reproductibles** - 100% déterministe et offline
 - ✅ **Customisation totale** - Contrôle complet du processus
@@ -61,134 +88,32 @@ Votre soutien permet de :
 
 ## 🚀 Installation
 
-### Installation via npm (Recommandée)
+### Dépendances Minimales
 
 **Pour le développement :** Seuls `electron@^39.1.1` et Python 3.11+ sont requis.
-[![](https://img.shields.io/badge/info-Commandes%20disponibles-blue)]
 
-### Afficher toutes les commandes disponibles
-
-> **Important :** Avant d'utiliser ces commandes, ajoutez les scripts suivants dans la section `scripts` de votre `package.json` :
->
-> ```json
-> "help": "node node_modules/metadidomi-builder/build_tools/commands-help.js",
-> "help:electron": "node node_modules/metadidomi-builder/build_tools/commands-help.js --type=electron",
-> "help:python": "node node_modules/metadidomi-builder/build_tools/commands-help.js --type=python",
-> "help:all": "node node_modules/metadidomi-builder/build_tools/commands-help.js --all"
-> ```
-
-Pour voir toutes les commandes adaptées à votre projet (Electron ou Python), utilisez la commande d'aide interactive :
-
-```powershell
-npm run help           # Affiche toutes les commandes disponibles
-npm run help:electron # Affiche uniquement les commandes Electron
-npm run help:python   # Affiche uniquement les commandes Python
-npm run help:all      # Affiche tout (mode universel)
-```
-
-**Exemple d'affichage** :
-```
-> npm run help
-
-─────────────────────────────
- METADIDOMI BUILDER - COMMANDES DISPONIBLES
-─────────────────────────────
-
-1. BUILD
-  Crée un installateur Windows NSIS professionnel
-  Commande: npm run build
-  Alternatives: npx metadidomi-builder
-  Sortie: ./dist/MonApp-Setup-1.0.0.exe
-
-2. BUILD:PYTHON
-  Build d'application Python en mode console
-  Commande: npm run build:python
-  Alternatives: npx metadidomi-builder-python
-  Sortie: ./dist/MonApp-Setup-1.0.0.exe
-
-...etc
-```
-
-La commande détecte automatiquement le type de projet et affiche les commandes adaptées, avec explications et exemples.
-
-Pour plus d'exemples, consultez la section "Exemples Pratiques" plus bas.
-
-#### Option 1 : Installation dans votre projet
-
-```powershell
-# Installez le builder comme dépendance de développement
-npm install --save-dev metadidomi-builder
-
-# Ajoutez des scripts dans votre package.json
-# "scripts": {
-#   "build": "metadidomi-builder",
-#   "build:lite": "set LITE_BUILD=true && metadidomi-builder",
-#   "build:portable": "set CREATE_PORTABLE_EXE=true && metadidomi-builder",
-#   "build:python": "node node_modules/metadidomi-builder/build_tools_py/builder.py",
-#   "build:python:gui": "node node_modules/metadidomi-builder/build_tools_py/builder.py --gui"
-# }
-
-# Puis lancez avec :
-npm run build                    # Build Electron standard
-# ou
-npm run build:lite              # Build Electron optimisé
-npm run build:portable          # Exécutable portable
-npm run build:python            # Build Python (console)
-npm run build:python:gui        # Build Python (GUI)
-```
-
-#### Option 2 : Utilisation directe avec npx
-
-```powershell
-# Lancez directement sans installation
-npx metadidomi-builder
-```
-
-#### Option 3 : Installation Globale
-
-```powershell
-# Installez globalement
-npm install -g metadidomi-builder
-
-# Lancez depuis n'importe où
-metadidomi-builder
-```
-
-### Installation Manuelle (Avancé)
-
-Si vous préférez installer manuellement :
-
-1. **Clonez le repository**
-```powershell
-git clone https://github.com/METADIDOMIOFFICIEL/Metadidomi-Builder.git
-cd metadidomi-builder
-```
-
-2. **Installez les dépendances**
 ```powershell
 npm install
 ```
+# � INSTALLATION DES DÉPENDANCES VENDOR
 
-3. **Téléchargez les modules vendor** (si absent)
-   - Téléchargez `vendor.zip` depuis :
-     https://github.com/METADIDOMIOFFICIEL/Metadidomi-Builder/releases/download/1.3.171125/vendor.zip
-   - Extrayez dans `build_tools/vendor/`
+Si lors de l'installation le dossier `build_tools/vendor` n'est pas présent, suivez ces instructions :
 
-4. **Lancez le builder**
-```powershell
-# Depuis le dossier d'installation
-node build_tools/builder.js
+. Téléchargez le fichier `vendor.zip` depuis :
+  https://github.com/METADIDOMIOFFICIEL/Metadidomi-Builder/releases/download/1.3.171125/vendor.zip
 
-# Ou depuis votre app (en spécifiant le chemin)
-node "C:\chemin-vers\metadidomi-builder\build_tools\builder.js"
-```
+En suite télécharger le kit Android:
+https://github.com/METADIDOMIOFFICIEL/Metadidomi-Builder/releases/download/Android.zip/android.zip
+
+💡 **Suite** :
+Vous pouvez aussi extraire manuellement le contenu de `vendor.zip` dans le dossier `build_tools/vendor`.
 
 ### Modules Embarqués - 100% Offline
 
-Toutes les dépendances essentielles sont incluses dans `node_modules/metadidomi-builder/build_tools/vendor/` (installation npm) ou `build_tools/vendor/` (installation manuelle) :
+Toutes les dépendances essentielles sont incluses dans `build_tools/vendor/` :
 
 ```
-build_tools/vendor/ (ou node_modules/metadidomi-builder/build_tools/vendor/)
+build_tools/vendor/
   ├── asar/                    # Packaging et archivage
   ├── bytenode/                # Compilation JavaScript → bytecode V8
   ├── electron-asar/           # ASAR officiel Electron
@@ -216,26 +141,22 @@ Le builder intègre un **système automatique de signature** avec deux modes :
 
 #### Mode 1 : Auto-signé (Défaut - Développement)
 - ✅ Généré automatiquement lors du premier build
-- 📁 Stocké dans `node_modules/metadidomi-builder/build_tools/certs/cert-[hash].pfx` (npm) ou `build_tools/certs/cert-[hash].pfx` (manuel)
-- 🔑 Mot de passe dans `cert-[hash].key`
+- 📁 Stocké dans `build_tools/certs/cert-[hash].pfx`
+- 🔑 Mot de passe dans `build_tools/certs/cert-[hash].key`
 - ⚡ Aucune configuration requise
 
 #### Mode 2 : Certificat Personnalisé (Production)
 
 ```powershell
 # Option 1 : Fichier dans le dossier par défaut
-# Npm: Placer dans node_modules/metadidomi-builder/build_tools/certs/signing.pfx
-# Manuel: Placer dans build_tools/certs/signing.pfx
+# Placer: build_tools/certs/signing.pfx
 
 # Option 2 : Variables d'environnement
 $env:PFX_PATH="chemin/vers/certificat.pfx"
 $env:PFX_PASS="mot-de-passe-certificat"
 
-# Lancer le build avec npm
-npm run build
-
-# Ou avec npx
-npx metadidomi-builder
+# Lancer le build
+node build_tools/builder.js
 ```
 
 **Priorité de signature :**
@@ -246,46 +167,16 @@ npx metadidomi-builder
 
 ---
 
-[⬆️ Retour en haut](#-multi-builder-premium)
-
 ## ⚡ Démarrage Rapide
 
-### Pour les Pressés (< 5 min) - Installation npm
+### Pour les Pressés (< 5 min)
 
 ```powershell
-# 1. Installez le builder
-npm i metadidomi-builder
+# 1. Allez dans votre dossier d'application
+cd D:\mon-app
 
 # 2. Lancez le builder
-npm run build
-
-# 3. C'est tout ! ✅
-# Résultat: ./dist/MonApp-Setup-1.0.0.exe
-```
-
-**OU directement avec npx :**
-
-```powershell
-# 1. Allez dans votre dossier d'application
-cd D:\mon-app
-
-# 2. Lancez le builder directement
-npx metadidomi-builder
-
-> **À savoir :**
-
-# 3. C'est tout ! ✅
-# Résultat: ./dist/MonApp-Setup-1.0.0.exe
-```
-
-### Alternative : Installation Manuelle
-
-```powershell
-# 1. Allez dans votre dossier d'application
-cd D:\mon-app
-
-# 2. Lancez le builder manuellement
-node "C:\chemin-vers\metadidomi-builder\build_tools\builder.js"
+node D:\chemin-vers\metadidomi-builder\build_tools\builder.js
 
 # 3. C'est tout ! ✅
 # Résultat: ./dist/MonApp-Setup-1.0.0.exe
@@ -301,94 +192,6 @@ mon-app/
 ```
 
 **Si aucun fichier n'existe, le builder génère une application de démo complète et fonctionnelle !** 🎉
-
-### ⚠️ Éviter les Boucles Infinies de Build
-
-**IMPORTANT :** Configurez correctement votre `package.json` pour éviter que le builder relance indéfiniment des builds.
-
-#### ❌ MAUVAIS - Créé une boucle infinie
-
-```json
-{
-  "name": "mon-app",
-  "version": "1.0.0",
-  "scripts": {
-    "start": "npm run build",
-    "build": "metadidomi-builder"
-  }
-}
-```
-
-**Problème :** `npm run build` → `metadidomi-builder` → (re)crée `package.json` → retrigger scripts → boucle infinie ❌
-
-#### ✅ BON - Structure Correcte
-
-```json
-{
-  "name": "mon-app",
-  "version": "1.0.0",
-  "main": "main.js",
-  "scripts": {
-    "start": "electron .",
-    "dev": "electron .",
-    "build": "metadidomi-builder",
-    "build:lite": "set LITE_BUILD=true && metadidomi-builder",
-    "build:portable": "set CREATE_PORTABLE_EXE=true && metadidomi-builder"
-  },
-  "dependencies": {
-    "electron": "^31.0.0"
-  }
-}
-```
-
-**Points clés :**
-- ✅ `"start"` lance **Electron**, pas le builder
-- ✅ `"build"` lance **SEULEMENT** le builder
-- ✅ Les scripts ne s'appellent pas mutuellement
-- ✅ Pas de hook `prestart` ou `postinstall` qui relancerait build
-- ✅ Le builder ne modifie PAS le package.json existant
-
-#### 🛡️ Règles de Sécurité pour npm scripts
-
-| Script | Doit faire | Doit PAS faire |
-|--------|-----------|---|
-| `start` | Lancer Electron ou l'app | Lancer le builder |
-| `build` | Lancer le builder | Lancer d'autres scripts |
-| `dev` | Mode développement Electron | Lancer le builder |
-| `test` | Exécuter les tests | Lancer le builder |
-
-#### 🔒 Protéger votre package.json
-
-**Ne pas ajouter ces hooks dangereux :**
-
-```json
-{
-  "scripts": {
-    "prestart": "npm run build",      // ❌ DANGER: boucle
-    "postinstall": "npm run build",   // ❌ DANGER: boucle
-    "prepare": "npm run build"        // ❌ DANGER: boucle
-  }
-}
-```
-
-#### ✅ Alternative Sûre : Scripts Séparés
-
-Si vous voulez build ET lancer, créez deux scripts distincts :
-
-```json
-{
-  "scripts": {
-    "build": "metadidomi-builder",
-    "start": "electron .",
-    "build-and-run": "npm run build && npm start"
-  }
-}
-```
-
-**Utilisation :**
-```powershell
-npm run build-and-run  # ✅ Build PUIS lance l'app (une fois seulement)
-```
 
 ---
 
@@ -525,11 +328,7 @@ axios.get('https://api.example.com/data')
 
 ### 2. Tester Localement Avant de Packager
 ```powershell
-# Python - Installation npm
-.\node_modules\metadidomi-builder\build_tools\vendor\python_embeddable\python.exe -m pip install -r requirements.txt
-python __main__.py
-
-# Python - Installation manuelle
+# Python
  .\build_tools\vendor\python_embeddable\python.exe -m pip install -r requirements.txt
 python __main__.py
 
@@ -565,19 +364,6 @@ import numpy as np
 
 ### Python
 
-**Installation npm :**
-```powershell
-# Voir les dépendances qui peuvent être mises à jour
-.\node_modules\metadidomi-builder\build_tools\vendor\python_embeddable\python.exe -m pip list --outdated
-
-# Mettre à jour une dépendance
-.\node_modules\metadidomi-builder\build_tools\vendor\python_embeddable\python.exe -m pip install --upgrade requests
-
-# Mettre à jour tous les packages
-.\node_modules\metadidomi-builder\build_tools\vendor\python_embeddable\python.exe -m pip install --upgrade -r requirements.txt
-```
-
-**Installation manuelle :**
 ```powershell
 # Voir les dépendances qui peuvent être mises à jour
  .\build_tools\vendor\python_embeddable\python.exe -m pip  list --outdated
@@ -610,21 +396,8 @@ npm update
 
 #### ⭐ Standard (Défaut) - Installateur NSIS
 
-**Avec npm :**
 ```powershell
-npm run build
-# Résultat: ./dist/MonApp-Setup-1.0.0.exe
-```
-
-**Avec npx :**
-```powershell
-npx metadidomi-builder
-# Résultat: ./dist/MonApp-Setup-1.0.0.exe
-```
-
-**Manuel :**
-```powershell
-node node_modules/metadidomi-builder/build_tools/builder.js
+node build_tools/builder.js
 # Résultat: ./dist/MonApp-Setup-1.0.0.exe
 ```
 
@@ -632,15 +405,9 @@ Crée un **installateur professionnel** avec options d'installation, raccourcis,
 
 #### 💾 Portable - Exécutable Autonome
 
-**Avec npm :**
 ```powershell
-$env:CREATE_PORTABLE_EXE="true"; npm run build
-# Résultat: ./dist/MonApp.exe (portable, ~130MB)
-```
-
-**Avec npx :**
-```powershell
-$env:CREATE_PORTABLE_EXE="true"; npx metadidomi-builder
+$env:CREATE_PORTABLE_EXE="true"
+node build_tools/builder.js
 # Résultat: ./dist/MonApp.exe (portable, ~130MB)
 ```
 
@@ -648,9 +415,9 @@ Exécutable indépendant sans installation requise.
 
 #### ⚡ LITE - Mode Optimisé
 
-**Avec npm :**
 ```powershell
-$env:LITE_BUILD="true"; npm run build
+$env:LITE_BUILD="true"
+node build_tools/builder.js
 # Résultat: ./dist/MonApp-Setup-1.0.0.exe (optimisé)
 # Rapport: electron-lite-deps-report.txt
 ```
@@ -659,52 +426,46 @@ Analyse et exclut automatiquement les modules inutiles. Génère un rapport dét
 
 #### 🚫 Sans Installateur
 
-**Avec npm :**
 ```powershell
-$env:SKIP_INSTALLER="true"; npm run build
+$env:SKIP_INSTALLER="true"
+node build_tools/builder.js
 # Résultat: Ressources de base seulement
 ```
 
 #### 🔐 Avec Chiffrement
 
-**Avec npm :**
 ```powershell
-$env:KEY="votre-clé-secrète"; npm run build
-```
-
-**Avec npx :**
-```powershell
-$env:KEY="votre-clé-secrète"; npx metadidomi-builder
+$env:KEY="votre-clé-secrète"
+node build_tools/builder.js
 ```
 
 #### ⚙️ Compression UPX (Optionnelle)
 
-**Mode rapide (recommandé) :**
 ```powershell
-$env:USE_UPX="true"; npm run build
-```
+# Mode rapide (recommandé)
+$env:USE_UPX="true"
+node build_tools/builder.js
 
-**Mode ultra-brute (très lent, gain maximal) :**
-```powershell
-$env:USE_UPX="true"; $env:UPX_ULTRA_BRUTE="true"; npm run build
+# Mode ultra-brute (très lent, gain maximal)
+$env:USE_UPX="true"
+$env:UPX_ULTRA_BRUTE="true"
+node build_tools/builder.js
 ```
 
 #### 🔗 Combinaisons Utiles
 
-**Portable + LITE + Chiffrement :**
 ```powershell
+# Portable + LITE + Chiffrement
 $env:CREATE_PORTABLE_EXE="true"
 $env:LITE_BUILD="true"
 $env:KEY="clé-secrète"
-npm run build
-```
+node build_tools/builder.js
 
-**Avec UPX + Signature personnalisée :**
-```powershell
+# Avec UPX + Signature personnalisée
 $env:USE_UPX="true"
 $env:PFX_PATH="cert.pfx"
 $env:PFX_PASS="mot-de-passe"
-npm run build
+node build_tools/builder.js
 ```
 
 ### Paramètres Avancés
@@ -795,25 +556,37 @@ mon-app/
 
 Le builder intègre un **système complet de protection du code** avec obfuscation intelligente, chiffrement multi-couches, et anti-analyse.
 
+### Deux Modes de Protection
+
+**Mode Interactif** - Questions guidées pour chaque protection
+```powershell
+cd metadidomi-builder/build_tools_py/pyMetadidomi
+python pyMetadidomi.py
+```
+
+**Mode CLI** - Automatisé avec arguments
+```powershell
+# Presets rapides
+python pyMetadidomi.py script.py --light-protection      # Léger
+python pyMetadidomi.py script.py --medium-protection     # Moyen
+python pyMetadidomi.py script.py --heavy-protection      # Maximal
+
+# Options individuelles
+python pyMetadidomi.py script.py --carbon                 # Obfuscation
+python pyMetadidomi.py script.py --junk                   # Code parasite
+python pyMetadidomi.py script.py --anti-vm                # Anti-VM
+python pyMetadidomi.py script.py --multi-encrypt          # Chiffrement multi-couches
+```
+
 ### Protection pour Electron
 
-**Avec npm :**
 ```powershell
-npm run build -- --light-protection
-npm run build -- --medium-protection
-npm run build -- --heavy-protection
+node build_tools/builder.js --light-protection
+node build_tools/builder.js --medium-protection
+node build_tools/builder.js --heavy-protection
 ```
 
-**Avec npx :**
-```powershell
-npx metadidomi-builder --light-protection
-npx metadidomi-builder --medium-protection
-npx metadidomi-builder --heavy-protection
-```
-
-**Remarque :** Pour les projets Python, voir la section [Protection du Code Python](#niveaux-de-protection-du-code-python).
-
-👉 **[📖 Documentation complète des protections →](node_modules/metadidomi-builder/build_tools_py/PROTECTION_COMMANDS.md)**
+👉 **[📖 Documentation complète des protections →](build_tools_py/PROTECTION_COMMANDS.md)**
 
 ## Construction LITE (optimisation)
 ```powershell
@@ -825,22 +598,20 @@ Génère un rapport `electron-lite-deps-report.txt` avec les modules analysés.
 ## Clé de Chiffrement Personnalisée
 ```powershell
 $env:KEY="votre-clé-secrète"
-npm run build
+node build_tools/builder.js
 ```
 Si non défini, une clé est générée automatiquement.
 
 ## Compression UPX
-**Mode rapide (défaut) :**
 ```powershell
+# Mode rapide (défaut)
 $env:USE_UPX="true"
-npm run build
-```
+node build_tools/builder.js
 
-**Mode ultra-brute (très lent) :**
-```powershell
+# Mode ultra-brute (très lent)
 $env:USE_UPX="true"
 $env:UPX_ULTRA_BRUTE="true"
-npm run build
+node build_tools/builder.js
 ```
 
 ---
@@ -885,83 +656,19 @@ Builder (compile, chiffre, empaque, signe)
 
 ## 📝 Exemples Pratiques
 
-### Installation npm + Utilisation - Electron
-
-**Exemple 1 : Setup complet avec tous les scripts npm**
-
 ```powershell
-# Installez le builder
-npm i metadidomi-builder
+# Mode simple (depuis votre app)
+cd D:\MonApp
+node C:\metadidomi-builder\build_tools\builder.js
 
-# Ajoutez les scripts à votre package.json:
-# "scripts": {
-#   "start": "electron .",
-#   "dev": "electron .",
-#   "build": "metadidomi-builder",
-#   "build:lite": "set LITE_BUILD=true && metadidomi-builder",
-#   "build:portable": "set CREATE_PORTABLE_EXE=true && metadidomi-builder",
-#   "build:encrypted": "set KEY=ma-cle-secrete && metadidomi-builder",
-#   "build-and-run": "npm run build && echo Build complete!"
-# }
+# Avec source et sortie personnalisées
+node build_tools/builder.js --app-src D:\mon-app --output D:\dist
 
-# Puis lancez avec :
-npm run build              # Build standard → ./dist/MonApp-Setup-1.0.0.exe
-npm run build:lite         # Build optimisé → ./dist/MonApp-Setup-1.0.0.exe
-npm run build:portable     # Exécutable portable → ./dist/MonApp.exe
-npm run build:encrypted    # Avec clé → ./dist/MonApp-Setup-1.0.0.exe (chiffré)
-npm run build-and-run      # Build puis message
-```
+# Avec chiffrement
+$env:KEY="ma-clé-secrète"
+node build_tools/builder.js --app-src C:\MonApp
 
-**Exemple 2 : Avec options avancées dans package.json**
-
-```json
-{
-  "name": "mon-app-electron",
-  "version": "1.0.0",
-  "main": "main.js",
-  "scripts": {
-    "start": "electron .",
-    "dev": "electron .",
-    "build": "metadidomi-builder",
-    "build:lite": "set LITE_BUILD=true && metadidomi-builder",
-    "build:portable": "set CREATE_PORTABLE_EXE=true && metadidomi-builder",
-    "build:upx": "set USE_UPX=true && metadidomi-builder",
-    "build:full": "set CREATE_PORTABLE_EXE=true && set LITE_BUILD=true && set USE_UPX=true && metadidomi-builder",
-    "build:protected": "set LITE_BUILD=true && metadidomi-builder --medium-protection"
-  },
-  "dependencies": {
-    "electron": "^31.0.0"
-  }
-}
-```
-
-**Exemple 3 : Avec npx (sans installation)**
-
-```powershell
-npx metadidomi-builder                    # Build standard
-npx metadidomi-builder --light-protection # Build avec protection légère
-npx metadidomi-builder --medium-protection # Build avec protection moyenne
-```
-
-npm run build
-# Résultat: ./dist/MonApp-Setup-1.0.0.exe
-```
-
-**Exemple 2 : Avec npx (sans installation)**
-```powershell
-npx metadidomi-builder
-# Résultat: ./dist/MonApp-Setup-1.0.0.exe
-```
-
-**Exemple 3 : Avec options personnalisées**
-```powershell
-npm run build -- --light-protection
-# Ou
-$env:KEY="ma-clé-secrète"; npm run build
-```
-
-**Exemple 4 : Portable + LITE + UPX**
-```powershell
+# Portable + LITE + UPX
 $env:CREATE_PORTABLE_EXE="true"
 $env:LITE_BUILD="true"
 $env:USE_UPX="true"
@@ -1027,6 +734,11 @@ L'injection ajoute automatiquement :
 - Gestion des erreurs de sécurité
 
 ---
+
+## 📊 Comparaison avec electron-builder
+- Options d'obfuscation sûres et compatibles
+- Pas de transformation agressive du code
+- Préserve la stabilité de l'application
 
 ### 📊 Protection multiniveau
 Cette approche assure :
@@ -1416,105 +1128,43 @@ L'empaquetage récursif est optimisé pour :
 | **Chiffrement ressources** | ✅ AES-256 intégré | ❌ Addon requis |
 | **Bytecode protection** | ✅ bytenode natif | ❌ Non |
 | **Mode LITE** | ✅ Analyse dépendances | ❌ Non |
-| **Build reproducible** | ✅ 100% déterministe | ⚠️ Partiel |
-| **Packaging Python** | ✅ Oui (NSIS + obfuscation) | ❌ Non |
-| **Protection code Python** | ✅ pyMetadidomi (light/medium/heavy) | ❌ Non |
-| **Multi-plateforme** | ⏳ Q1-2026 (macOS/Linux) | ✅ Windows/macOS/Linux |
-| **Communauté** | 🆕 En croissance | ✅ Très large |
-| **Support commercial** | ✅ Direct (ETS METADIDOMI) | ✅ Communauté + sponsors |
+| **Build reproducible** | ✅ Oui | ⚠️ Partiel |
 
-### 🎯 Tableau Récapitulatif
+**metadidomi-builder** : Optimal pour sécurité maximale, 100% offline, protection bytecode
+**electron-builder** : Optimal pour multi-plateforme, configuration simple, communauté large
 
-**metadidomi-builder** : 
-- ✅ **Sécurité maximale** - AES-256, bytecode, obfuscation pyMetadidomi
-- ✅ **100% offline** - Zéro dépendance externe, tous les outils embarqués
-- ✅ **Builds reproductibles** - Déterministe et versionnable
-- ✅ **Python support** - Applications Python complètes avec installateurs NSIS
-- ⏳ **Multi-plateforme** - Windows maintenant, macOS/Linux 2026
-
-**electron-builder** :
-- ✅ **Multi-plateforme établi** - Windows, macOS, Linux, AppImage, Snap
-- ✅ **Configuration simple** - Template facile à adapter
-- ✅ **Communauté large** - Nombreuses extensions et plugins
-- ⚠️ **Dépendances réseau** - Nécessite téléchargements externe
-- ❌ **Python non supporté** - Electron uniquement
-
-### 💡 Comment Choisir?
-
-**Utilisez metadidomi-builder si vous avez besoin de :**
-- 🔐 Sécurité critique (finance, santé, militaire)
-- 📦 Packaging Python standalone avec installateur professionnel
-- 🔒 Obfuscation et protection du code (anti-reverse engineering)
-- 🚫 Environnement complètement offline
-- ⚙️ Contrôle total sur le processus de build
-
-**Utilisez electron-builder si vous avez besoin de :**
-- 🖥️ Multi-plateforme stable et mature
-- 🚀 Setup rapide et facile (peu de configuration)
-- 👥 Accès à une large communauté et d'extensions
-- 📱 Support macOS/Linux dès maintenant
-- 🔄 Updates automatiques intégrées
+👉 **Choisir metadidomi-builder si** : sécurité critique, environnement offline, control total
+👉 **Choisir electron-builder si** : multi-plateforme, setup simple, app standard
 
 ---
-
-[⬆️ Retour en haut](#-multi-builder-premium)
 
 ## � Packaging d'Applications Python
 
 Le builder inclut aussi un **système complet de packaging Python** via `builder.py` pour créer des applications Windows standalone avec installateurs NSIS professionnels.
 
-
 ### 🚀 Démarrage Rapide - Applications Python
 
-**Option 1 : Via npm (Recommandée)**
+**Le plus simple** - Exécutez le builder Python depuis votre dossier d'application :
 
 ```powershell
-# Installez le builder
-npm i metadidomi-builder
+# Depuis votre répertoire d'application Python
+cd D:\mon-app-python
+python D:\chemin-vers\metadidomi-builder\build_tools_py\builder.py
 
-# Ajoutez des scripts dans votre package.json
-# "scripts": {
-#   "build:python": "python node_modules\\metadidomi-builder\\build_tools_py\\builder.py --app-src ./src",
-#   "build:python:gui": "python node_modules\\metadidomi-builder\\build_tools_py\\builder.py --gui --app-src ./src"
-# }
-
-# Puis lancez avec :
-npm run build:python           # Mode console (par défaut)
-# Résultat: ./dist/MonApp-Setup-1.0.0.exe
-
-# OU
-npm run build:python:gui       # Mode GUI (sans console)
 # Résultat: ./dist/MonApp-Setup-1.0.0.exe
 ```
 
-> **Astuce :** Placez toujours vos sources Python dans un dossier `src/` et ajoutez l’option `--app-src ./src` à vos scripts dans le `package.json`. Cela évite les erreurs de scan des dossiers `node_modules` et `vendor` (chemins trop longs ou fichiers manquants).
-> Placez vos fichiers sources Python (`config.py`, `__main__.py`, etc.) dans un dossier séparé (ex : `src/`).
-> Puis lancez le build en précisant le chemin source :
-> ```powershell
-> npm run build:python -- --app-src ./src
-> ```
-> Cela évite que le builder scanne le dossier `node_modules` et les vendors, et prévient les erreurs de chemin trop long ou manquant.
-
-**Option 2 : Avec npx (sans installation)**
+**Ou avec options personnalisées :**
 
 ```powershell
-npx metadidomi-builder-python
-# Résultat: ./dist/MonApp-Setup-1.0.0.exe
-```
-
-**Option 3 : Installation Manuelle**
-
-```powershell
-# Mode console simple
-node "C:\chemin-vers\metadidomi-builder\build_tools_py\builder.py"
-# Résultat: ./dist/MonApp-Setup-1.0.0.exe
+# Source et sortie personnalisées
+python builder.py --app-src D:\mon-app --output D:\dist
 
 # Mode GUI (sans fenêtre console)
-node "C:\chemin-vers\metadidomi-builder\build_tools_py\builder.py" --gui
-# Résultat: ./dist/MonApp-Setup-1.0.0.exe
+python builder.py --gui
 
-# Avec source et sortie personnalisées
-node "C:\chemin-vers\metadidomi-builder\build_tools_py\builder.py" --app-src D:\mon-app --output D:\dist --gui
+# Combiné
+python builder.py --app-src D:\mon-app --output D:\dist --gui
 ```
 
 ### 📋 Structure Minimale d'une Application Python
@@ -1734,9 +1384,7 @@ Le builder utilise **Python Embeddable** pour les utilisateurs finaux :
 - ✅ Distribution portable
 - ✅ Inclus dans l'installateur NSIS
 
-**Localisation :**
-- Installation npm : `node_modules/metadidomi-builder/build_tools/vendor/python_embeddable/`
-- Installation manuelle : `build_tools/vendor/python_embeddable/`
+**Localisation :** `build_tools/vendor/python_embeddable/`
 
 ### 🔐 Protection du Code Python
 
@@ -1759,24 +1407,6 @@ Le builder utilise **Python Embeddable** pour les utilisateurs finaux :
    - Code Python injecté dynamiquement
    - Exécution directe sans interpréteur externe
 
-#### Niveaux de protection du code Python
-
-Vous pouvez protéger votre code Python lors du build avec différents niveaux de protection :
-
-```powershell
-npm run build:python -- --app-src ./src --light-protection
-npm run build:python:gui -- --app-src ./src --medium-protection
-npm run build:python -- --app-src ./src --heavy-protection
-```
-
-**Options de protection :**
-
-- `--light-protection` : Obfuscation légère (carbon + junk)
-- `--medium-protection` : Obfuscation moyenne (carbon + junk + bugs + dead-code)
-- `--heavy-protection` : Protection maximale (toutes les options)
-
-**Remarque :** Ces options ne concernent que les projets Python. Pour Electron, voir la section correspondante.
-
 ### 📊 Fichiers Générés
 
 ```
@@ -1795,59 +1425,54 @@ dist/
 
 #### Exemple 1 : Application Console Simple
 
-**Avec npm :**
 ```powershell
 # Structure
 mon-app/
-  src/
-    config.py
-    __main__.py
+  config.py
+  __main__.py
 
 # Build
 cd mon-app
-npm run build:python -- --app-src ./src
+python ..\builder.py
 # Résultat: ./dist/MonApp-Setup-1.0.0.exe
 ```
 
 #### Exemple 2 : Application Tkinter GUI
 
-**Avec npm :**
 ```powershell
 # Structure
 mon-app-gui/
-  src/
-    config.py
-    __main__.py         ← Interface Tkinter
-    assets/
-      icon.ico
+  config.py
+  __main__.py         ← Interface Tkinter
+  assets/
+    icon.ico
 
 # Build (mode GUI pour éviter console)
-npm run build:python:gui -- --app-src ./src
+cd mon-app-gui
+python ..\..\builder.py --gui
 # Résultat: ./dist/MonApp-Setup-1.0.0.exe (pas de console)
 ```
 
 #### Exemple 3 : Application Complexe Multi-Fichiers
 
-**Avec npm :**
 ```powershell
 # Structure complexe
 mon-app/
-  src/
-    config.py
-    __main__.py
-    utils/
-      helpers.py
-      validators.py
-    lib/
-      core.py
-      handlers/
-        events.py
-    assets/
-      icon.ico
-      data.json
+  config.py
+  __main__.py
+  utils/
+    helpers.py
+    validators.py
+  lib/
+    core.py
+    handlers/
+      events.py
+  assets/
+    icon.ico
+    data.json
 
-# Build
-npm run build:python -- --app-src ./src
+# Build avec sortie personnalisée
+python builder.py --app-src D:\mon-app --output D:\dist
 # TOUS les fichiers récursivement inclus ✅
 ```
 
@@ -1855,52 +1480,30 @@ npm run build:python -- --app-src ./src
 
 #### Avec Clé de Chiffrement Personnalisée
 
-**Avec npm :**
-```powershell
-# Via variable d'environnement
-$env:KEY = "ma-clé-secrète-32-caractères"
-npm run build:python -- --app-src ./src
-```
-
-**Manuel :**
 ```powershell
 # Option 1: Via argument
-node build_tools_py/builder.py --app-src ./src --key "ma-clé-secrète-32-caractères"
+python builder.py --key "ma-clé-secrète-32-caractères"
 
 # Option 2: Via variable d'environnement
 $env:KEY = "ma-clé-secrète-32-caractères"
-node build_tools_py/builder.py --app-src ./src
+python builder.py
 ```
 
 #### Sans Compilation .pyc
 
-**Avec npm :**
-
 ```powershell
-npm run build:python -- --no-pyc --app-src ./src
-```
-
-**Manuel :**
-```powershell
-node build_tools_py/builder.py --app-src ./src --no-pyc
+python builder.py --no-pyc
 # Les .py restent non compilés (plus rapide au build)
 ```
 
 #### Combinaisons
 
-**Avec npm :**
 ```powershell
-# GUI + clé custom
-$env:KEY = "clé-secrète"; npm run build:python:gui -- --app-src ./src
-```
-
-**Manuel :**
-```powershell
-# GUI + clé custom
-node build_tools_py/builder.py --app-src ./src --gui --key "clé-secrète"
+# GUI + sortie personnalisée + clé custom
+python builder.py --gui --output D:\dist --key "clé-secrète"
 
 # Source custom + GUI + sans .pyc
-node build_tools_py/builder.py --app-src D:\mon-app --gui --no-pyc
+python builder.py --app-src D:\mon-app --gui --no-pyc
 ```
 
 ### 🔍 Dépistage et Débogage
@@ -1994,6 +1597,776 @@ Python Embeddable distribution not found
 ```
 **✅ SOLUTION:** Vérifiez le dossier `build_tools/vendor/python_embeddable/`
 
+---
+# Metadidomi Crone - Générateur d'APK Android
+
+Une solution complète et automatisée pour créer des applications Android (APK) sans besoin de connaissances avancées en Android Studio.
+
+<a id="top"></a>
+
+## 📋 Table des matières
+
+- [Installation rapide](#installation-rapide)
+- [Structure d'un projet](#structure-dun-projet)
+- [Créer une nouvelle application](#créer-une-nouvelle-application)
+- [Configuration de l'application](#configuration-de-lapplication)
+- [Générer l'APK](#générer-lapk)
+- [Exemples](#exemples)
+- [Dépannage](#dépannage)
+- [Options avancées](#options-avancées)
+
+---
+
+## Installation rapide
+
+🔝 [Retour en haut](#top)
+
+### Prérequis
+
+- **Node.js** (v14 ou supérieur) - [Télécharger](https://nodejs.org)
+- **PowerShell** (Windows) ou **Bash** (Mac/Linux)
+- **Python 3** (pour la génération d'icônes) - [Télécharger](https://www.python.org)
+- **Pillow** (PIL) pour Python : `pip install Pillow`
+
+### Vérifier l'installation
+
+```powershell
+node --version
+python --version
+npm --version
+```
+
+### Installation via npm (Recommandé)
+
+Installez metadidomi-builder comme dépendance locale dans votre projet :
+
+```powershell
+
+npm install metadidomi-builder
+```
+
+Créez un `package.json` à la racine de votre projet :
+
+```json
+{
+  "name": "mon-app-android",
+  "version": "1.0.0",
+    "scripts": {
+    "build": "node node_modules/metadidomi-builder/build_tools/build_apk.js .",
+    "build-debug": "node node_modules/metadidomi-builder/build_tools/build_apk.js . --fail-on-missing",
+    "build-restore": "node node_modules/metadidomi-builder/build_tools/build_apk.js . --restore",
+    "build-icons": "node node_modules/metadidomi-builder/build_tools/generate-icons.js ."
+  },
+  "keywords": [
+    "android",
+    "apk",
+    "builder"
+  ],
+  "author": "Metadidomi",
+  "license": "MIT",
+  "dependencies": {
+    "metadidomi-builder": "file:../metadidomi-builder",
+    "sharp": "^0.32.0"
+  }
+}
+```
+
+Puis installez et lancez le build :
+
+```powershell
+npm install
+npm run build
+```
+
+---
+
+## Structure d'un projet
+
+🔝 [Retour en haut](#top)
+
+Chaque application Android doit suivre cette structure :
+
+```
+MonApp/
+├── app-config.json           # Configuration de l'app
+├── AndroidManifest.xml       # Déclaration Android (généré automatiquement)
+├── src/
+│   └── com/example/monapp/
+│       └── MainActivity.java  # Code Java principal
+├── res/
+│   ├── layout/
+│   │   └── activity_main.xml # Interface utilisateur
+│   ├── values/
+│   │   ├── strings.xml       # Textes et traductions
+│   │   ├── colors.xml        # Couleurs
+│   │   └── styles.xml        # Styles et thèmes
+│   ├── mipmap-hdpi/
+│   │   └── ic_launcher.png   # Icône de l'app (auto-générée)
+│   └── drawable/             # Images supplémentaires (optionnel)
+└── build/                     # Généré automatiquement (à ignorer)
+```
+
+---
+
+## Créer une nouvelle application
+
+### Étape 1 : Créer la structure des dossiers
+
+🔝 [Retour en haut](#top)
+
+```powershell
+mkdir MonApp\src\com\example\monapp
+mkdir MonApp\res\layout
+mkdir MonApp\res\values
+mkdir MonApp\res\mipmap-hdpi
+```
+
+### Étape 2 : Créer `app-config.json`
+
+Ce fichier contient toutes les informations de votre application.
+
+```json
+{
+  "appName": "MonApp",
+  "appVersion": "1.0.0",
+  "appDescription": "Ma première application Android",
+  "packageName": "com.example.monapp",
+  "minSdkVersion": 21,
+  "targetSdkVersion": 34,
+  "colors": {
+    "primary": "#2196F3",
+    "primaryDark": "#1976D2",
+    "accent": "#FF5722"
+  }
+}
+```
+
+**Explications des paramètres :**
+- `appName` : Nom affiché de l'application
+- `appVersion` : Version sémantique (majeur.mineur.patch)
+- `packageName` : Identifiant unique (format domaine inversé)
+- `minSdkVersion` : Version Android minimale (21 = Android 5.0)
+- `targetSdkVersion` : Version Android ciblée (34 = Android 14)
+- `colors` : Couleurs principales (format hexadécimal)
+
+### Étape 3 : Créer l'interface (`activity_main.xml`)
+
+Fichier : `res/layout/activity_main.xml`
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bienvenue dans MonApp"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/myButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Appuyez-moi"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>
+```
+
+### Étape 4 : Créer les textes (`strings.xml`)
+
+Fichier : `res/values/strings.xml`
+
+```xml
+<resources>
+    <string name="app_name">MonApp</string>
+    <string name="app_version">1.0.0</string>
+    <string name="app_description">Ma première application</string>
+    <string name="hello_world">Bienvenue</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="back">Retour</string>
+    <string name="forward">Suivant</string>
+    <string name="reload">Recharger</string>
+</resources>
+```
+
+### Étape 5 : Créer le code Java (`MainActivity.java`)
+
+Fichier : `src/com/example/monapp/MainActivity.java`
+
+```java
+package com.example.monapp;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.Toast;
+import android.view.View;
+import android.util.Log;
+
+public class MainActivity extends Activity {
+    private static final String TAG = "MonApp";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Log.d(TAG, "MainActivity créée");
+
+        Button myButton = (Button) findViewById(R.id.myButton);
+        myButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Bouton cliqué!", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "Bouton cliqué");
+            }
+        });
+    }
+}
+```
+
+### Étape 6 : Ajouter une icône
+
+Placez une image PNG (96x96 pixels) dans `res/mipmap/`.
+
+**Le système générera automatiquement les variantes pour tous les écrans.**
+
+---
+
+## Configuration de l'application
+
+🔝 [Retour en haut](#top)
+
+### `app-config.json` complet
+
+```json
+{
+  "appName": "MonApp",
+  "appVersion": "1.0.0",
+  "appDescription": "Ma première application Android",
+  "packageName": "com.example.monapp",
+  "minSdkVersion": 21,
+  "targetSdkVersion": 34,
+  "colors": {
+    "primary": "#2196F3",
+    "primaryDark": "#1976D2",
+    "accent": "#FF5722"
+  },
+  "minimalRequiredFiles": [
+    "AndroidManifest.xml",
+    "res/values/strings.xml",
+    "res/values/styles.xml",
+    "res/layout/activity_main.xml"
+  ]
+}
+```
+
+---
+
+## Générer l'APK
+
+🔝 [Retour en haut](#top)
+
+### Avec npm
+
+```powershell
+# Build standard
+npm run build
+
+# Build avec vérification stricte
+npm run build-debug
+
+# Générer les icônes
+npm run build-icons
+```
+
+### Sans sauvegarde
+
+```powershell
+node "metadidomi-builder\build_tools\build_apk.js" "MonApp" --no-backup
+```
+
+### Restaurer depuis une sauvegarde
+
+```powershell
+node "metadidomi-builder\build_tools\build_apk.js" "MonApp" --restore
+```
+
+### Résultat
+
+Après une génération réussie, vous trouverez :
+
+```
+MonApp/
+└── MonApp.apk  ← Votre application, prête à installer!
+```
+
+Fichier de sortie : `MonApp/MonApp.apk`
+
+**Taille typique :** 2-5 MB
+
+---
+
+## Exemples
+
+🔝 [Retour en haut](#top)
+
+### Exemple 1 : Application Compteur
+
+Voir le dossier `CounterApp/` pour un exemple complet d'une application de compteur avec :
+- Boutons d'incrémentation/décrémentation
+- Affichage d'un compteur
+- Interface colorée
+
+### Exemple 2 : Application Simple
+
+Consultez `MyApp/` pour une application de base.
+
+### Exemple 3 : Application Avancée
+
+`MyApp_Advanced/` contient des fonctionnalités plus complexes.
+
+---
+
+## Dépannage
+
+🔝 [Retour en haut](#top)
+
+### Erreur : "Aucun fichier Java trouvé"
+
+**Cause** : Le dossier `src/` est vide ou mal structuré.
+
+**Solution** :
+1. Vérifiez que `MainActivity.java` existe dans `src/com/example/monapp/`
+2. Vérifiez le nom du package (doit correspondre à `packageName` dans `app-config.json`)
+
+```
+src/
+└── com/example/monapp/
+    └── MainActivity.java  ✓ Correct
+```
+
+### Erreur : "resource string/... not found"
+
+**Cause** : Une chaîne de caractères référencée n'existe pas dans `strings.xml`.
+
+**Solution** :
+1. Ouvrez `res/values/strings.xml`
+2. Ajoutez la chaîne manquante avec son ID correct :
+   ```xml
+   <string name="fragment1">Fragments</string>
+   <string name="action_click">Cliquez ici</string>
+   ```
+3. **Assurez-vous que le nom correspond exactement** à celui utilisé dans votre layout XML
+
+**Exemple d'erreur rencontrée (CounterApp) :**
+```
+error: resource string/fragment1 not found
+```
+**Correction appliquée :**
+```xml
+<!-- res/values/strings.xml -->
+<resources>
+    <string name="app_name">CounterApp</string>
+    <string name="fragment1">Compteur</string>
+    <string name="increment">Incrémenter</string>
+    <string name="decrement">Décrémenter</string>
+    <string name="reset">Réinitialiser</string>
+</resources>
+```
+
+### Erreur : "cannot find symbol: variable R"
+
+**Cause** : Les ressources n'ont pas été compilées correctement.
+
+**Solution** :
+1. Supprimez le dossier `build/`
+2. Vérifiez que `res/values/strings.xml` est valide (XML bien formé, pas d'accents mal encodés)
+3. Relancez la génération complète
+
+### Erreur : "D8 compilation failed" avec "NullPointerException"
+
+**Cause** : Classes anonymes mal générées lors de la compilation DEX.
+
+**Symptômes** :
+```
+java.lang.NullPointerException: Cannot invoke "String.length()"
+Exception in thread "main" java.lang.NullPointerException
+```
+
+**Solution - Utilisez `implements View.OnClickListener` au lieu de classes anonymes** :
+
+❌ **INCORRECT (cause l'erreur D8)** :
+```java
+button.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        counter++;
+        updateDisplay();
+    }
+});
+```
+
+✅ **CORRECT** :
+```java
+public class MainActivity extends Activity implements View.OnClickListener {
+    private Button incrementBtn, decrementBtn;
+    
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id == R.id.incrementBtn) counter++;
+        else if (id == R.id.decrementBtn) counter--;
+    }
+}
+```
+
+**Pourquoi** : D8 (compilateur DEX) a des problèmes avec les classes anonymes imbriquées. Les interfaces nommées sont plus fiables.
+
+### Erreur : "cannot find symbol: variable helloText" ou autre ID de ressource
+
+**Cause** : Le code Java référence un ID qui n'existe pas dans le layout XML.
+
+**Symptôme** :
+```
+error: cannot find symbol
+symbol: variable helloText
+location: class MainActivity
+```
+
+**Solution** :
+1. Vérifiez que l'ID existe dans `res/layout/activity_main.xml` :
+   ```xml
+   <TextView
+       android:id="@+id/helloText"
+       ...
+   />
+   ```
+2. Vérifiez que vous utilisez le bon nom en Java :
+   ```java
+   TextView helloText = (TextView) findViewById(R.id.helloText);
+   ```
+3. Assurez-vous que l'ID correspond EXACTEMENT (majuscules/minuscules)
+
+**Exemple de correction (CounterApp)** :
+```xml
+<!-- res/layout/activity_main.xml -->
+<LinearLayout ...>
+    <TextView
+        android:id="@+id/counterDisplay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="72sp" />
+    
+    <Button
+        android:id="@+id/incrementBtn"
+        android:text="Incrémenter" />
+</LinearLayout>
+```
+
+### Erreur : "AndroidManifest.xml not found"
+
+**Cause** : Fichier de configuration critique manquant ou mal généré.
+
+**Solution** :
+1. Vérifiez que `app-config.json` existe à la racine du projet
+2. Assurez-vous que le JSON est valide (syntaxe correcte, pas de virgules manquantes)
+3. Relancez le build avec l'option `--fail-on-missing` pour diagnostiquer :
+   ```powershell
+   node "metadidomi-builder\build_tools\build_apk.js" "MonApp" --fail-on-missing
+   ```
+
+### Erreur : "Fichiers minimums manquants"
+
+**Cause** : Des fichiers essentiels n'existent pas.
+
+**Files requises minimales** :
+- `app-config.json` → Configuration de l'app
+- `AndroidManifest.xml` → Descripteur (généré automatiquement)
+- `res/values/strings.xml` → Textes
+- `res/values/styles.xml` → Styles (généré automatiquement)
+- `res/layout/activity_main.xml` → Interface utilisateur
+- `src/com/example/monapp/MainActivity.java` → Code principal
+
+**Solution** :
+```powershell
+# Mode diagnostique - affiche les fichiers manquants sans échouer
+node "metadidomi-builder\build_tools\build_apk.js" "MonApp"
+
+# Mode strict - échoue si des fichiers manquent
+node "metadidomi-builder\build_tools\build_apk.js" "MonApp" --fail-on-missing
+```
+
+### L'APK n'est pas généré
+
+**Cause** : Erreur lors de la signature ou de l'assemblage final.
+
+**Solution** :
+1. Supprimez le fichier `.keystore` dans le dossier du projet :
+   ```powershell
+   rm "MonApp\.keystore"
+   ```
+2. Relancez la génération (un nouveau keystore sera créé) :
+   ```powershell
+   node "metadidomi-builder\build_tools\build_apk.js" "MonApp"
+   ```
+
+### Erreur : "Invalid app-config.json"
+
+**Cause** : Fichier de configuration mal formé.
+
+**Vérifiez** :
+```json
+{
+  "appName": "MonApp",           // ✓ String valide
+  "appVersion": "1.0.0",        // ✓ Format sémantique (majeur.mineur.patch)
+  "packageName": "com.example.monapp",  // ✓ Format domaine inversé
+  "minSdkVersion": 21,          // ✓ Nombre entier >= 21
+  "targetSdkVersion": 34,       // ✓ Nombre entier
+  "colors": {
+    "primary": "#2196F3",       // ✓ Couleur hexadécimale valide
+    "primaryDark": "#1976D2",
+    "accent": "#FF5722"
+  }
+}
+```
+
+### Erreur : "Layout XML invalide"
+
+**Cause** : Syntaxe XML incorrecte dans `activity_main.xml`.
+
+**Vérifiez** :
+- Les balises ouvrantes et fermantes correspondent (`<LinearLayout>` ... `</LinearLayout>`)
+- Les attributs android: sont valides
+- Les IDs sont uniques et bien formatés (`android:id="@+id/monId"`)
+- Les textes spéciaux sont échappés (`&amp;`, `&lt;`, `&gt;`)
+
+**Exemple correct** :
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+    <Button
+        android:id="@+id/myButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cliquez-moi" />
+    
+</LinearLayout>
+```
+
+### Erreur : "Icônes manquantes"
+
+**Cause** : L'icône n'a pas été générée ou redimensionnée correctement.
+
+**Solution** :
+1. Placez une image PNG (96x96 pixels minimum) dans `res/drawable/` ou `res/mipmap/`
+2. Exécutez le générateur d'icônes :
+   ```powershell
+   node "metadidomi-builder\build_tools\generate-icons.js" "MonApp"
+   ```
+3. Vérifiez que tous les dossiers mipmap ont été créés :
+   ```
+   res/mipmap-mdpi/ic_launcher.png       (48x48)
+   res/mipmap-hdpi/ic_launcher.png       (72x72)
+   res/mipmap-xhdpi/ic_launcher.png      (96x96)
+   res/mipmap-xxhdpi/ic_launcher.png     (144x144)
+   res/mipmap-xxxhdpi/ic_launcher.png    (192x192)
+   ```
+
+### Erreur : "Package name already exists"
+
+**Cause** : Un package Android avec le même nom est déjà installé.
+
+**Solution** :
+1. Changez le `packageName` dans `app-config.json` :
+   ```json
+   "packageName": "com.example.monapp.v2"
+   ```
+2. Régénérez l'APK
+3. Ou : désinstallez l'ancienne app avant d'installer la nouvelle
+
+---
+
+## Options avancées
+
+🔝 [Retour en haut](#top)
+
+### Personnaliser les ressources générées automatiquement
+
+Par défaut, le système génère :
+- `AndroidManifest.xml` (descripteur de l'app)
+- `res/values/colors.xml` (couleurs)
+- `res/values/styles.xml` (thèmes)
+
+Ces fichiers sont générés à chaque build. Pour les personnaliser, créez-les manuellement et le système les préservera.
+
+### Ajouter des ressources personnalisées
+
+```
+res/
+├── drawable/           # Images 1x (160 DPI)
+├── drawable-hdpi/      # Images 1.5x (240 DPI)
+├── drawable-xhdpi/     # Images 2x (320 DPI)
+├── drawable-xxhdpi/    # Images 3x (480 DPI)
+├── drawable-xxxhdpi/   # Images 4x (640 DPI)
+├── font/               # Polices personnalisées
+├── menu/               # Menus
+├── raw/                # Fichiers non compressés
+└── anim/               # Animations
+```
+
+### Générer les icônes automatiquement
+
+Placez une image source dans `res/drawable/` ou `res/mipmap/` :
+
+```powershell
+node "metadidomi-builder\build_tools\generate-icons.js" "MonApp"
+```
+
+Le système créera automatiquement les variantes pour tous les écrans :
+- `mipmap-mdpi` (48×48)
+- `mipmap-hdpi` (72×72)
+- `mipmap-xhdpi` (96×96)
+- `mipmap-xxhdpi` (144×144)
+- `mipmap-xxxhdpi` (192×192)
+
+### Utiliser des variables d'environnement
+
+```powershell
+$env:PROJECT_PATH = "C:\MonApp"
+node "metadidomi-builder\build_tools\build_apk.js"
+```
+
+---
+
+## Architecture du système
+
+🔝 [Retour en haut](#top)
+
+```
+metadidomi-builder/
+├── build_tools/
+│   ├── build_apk.js              # Orchestration principale
+│   ├── generate-resources.js     # Génération des ressources XML
+│   ├── generate-icons.js         # Redimensionnement des icônes
+│   ├── backup-manager.js         # Gestion des sauvegardes
+│   └── vendor/                   # SDK Android et JDK (inclus)
+└── build_tools_py/               # Outils Python avancés (optionnel)
+```
+
+---
+
+## Étapes du build expliquées
+
+🔝 [Retour en haut](#top)
+
+1. **Génération des ressources** : Crée `AndroidManifest.xml`, couleurs, styles
+2. **Génération des icônes** : Redimensionne l'icône pour toutes les densités
+3. **Vérification des fichiers** : Contrôle la présence des fichiers minimums
+4. **Compilation des ressources** : AAPT2 compile XML et images
+5. **Liaison des ressources** : Génération de `R.java` avec les IDs de ressources
+6. **Compilation Java** : Javac compile le code Java
+7. **Création du JAR** : Empaquetage des classes Java
+8. **Conversion DEX** : D8 convertit en format Android (DEX)
+9. **Assemblage APK** : Création de la structure APK
+10. **Alignement** : Zipalign optimise la structure APK
+11. **Signature** : Signature numérique de l'APK
+12. **Résultat** : APK prête à être installée
+
+---
+
+## Installation de l'APK sur un téléphone
+
+🔝 [Retour en haut](#top)
+
+### Via USB
+
+```powershell
+adb install -r "MonApp\MonApp.apk"
+```
+
+### Via partage de fichier
+
+1. Transférez le fichier `.apk` sur votre téléphone
+2. Ouvrez l'explorateur de fichiers
+3. Appuyez sur le fichier `.apk`
+4. Confirmez l'installation
+
+---
+
+## Conseils et bonnes pratiques
+
+🔝 [Retour en haut](#top)
+
+✅ **À faire :**
+- Tester l'app fréquemment
+- Utiliser des noms de ressources explicites
+- Commenter le code Java
+- Utiliser `Log.d()` pour déboguer
+- Versionner votre code (Git)
+
+❌ **À éviter :**
+- Charger des images trop volumineuses
+- Utiliser des classes anonymes complexes
+- Modifier les fichiers générés automatiquement
+- Laisser des ressources inutilisées
+
+---
+
+## Foire aux questions
+
+🔝 [Retour en haut](#top)
+
+**Q : Puis-je créer plusieurs activités ?**
+A : Oui, ajoutez des classes Java dans `src/` et déclarez-les dans `AndroidManifest.xml`.
+
+**Q : Comment ajouter des dépendances externes ?**
+A : Actuellement, seules les APIs Android intégrées sont supportées.
+
+**Q : L'APK fonctionne-t-il sur tous les téléphones ?**
+A : Oui, tant qu'ils sont Android 5.0 (API 21) ou supérieur.
+
+**Q : Puis-je mettre à jour l'APK ?**
+A : Oui, augmentez `appVersion` dans `app-config.json` et régénérez.
+
+**Q : Les APK sont-elles vraiment signées ?**
+A : Oui, automatiquement avec une clé de développement auto-générée.
+
+---
+
+## Support
+
+🔝 [Retour en haut](#top)
+
+Pour des problèmes ou des questions :
+
+1. Consultez le dossier `CounterApp/` pour un exemple complet
+2. Vérifiez les logs du build pour les erreurs
+3. Assurez-vous que tous les fichiers requis existent
+
+---
+
+## Version
+
+- **Metadidomi Crone** : v1.0.0
+- **Android SDK** : 34 (Android 14)
+- **Build Tools** : 34.0.0
+- **Dernière mise à jour** : Novembre 2025
+
+---
+
 ### 📞 Support
 
 Pour les questions sur le packaging Python :
@@ -2003,9 +2376,7 @@ Pour les questions sur le packaging Python :
 
 ---
 
-[⬆️ Retour en haut](#-multi-builder-premium)
-
-## �🗺️ Roadmap - Vision Multi-Plateforme
+## 🗺️ Roadmap - Vision Multi-Plateforme
 
 ### Phase 1 : Windows ✅ (Actuelle)
 - ✅ Build portable (.exe)
@@ -2044,4 +2415,3 @@ Pour les questions sur le packaging Python :
 Pour rapporter des bugs, suggérer des features ou contribuer : consultez les guidelines de contribution.
 
 ---
-
