@@ -1,7 +1,7 @@
 # 🚀Multi-Builder premium
 
 **Builder nouvelle génération** avec chiffrement de ressources, protection bytecode, obfuscation intelligente et prise en charge Python. 
-**Windows maintenant, macOS et Linux en développement.**
+**Windows et Android  maintenant, macOS et Linux en développement.**
 
 ---
  ![](/docs/icon.ico) 
@@ -11,7 +11,7 @@
 Si ce builder vous a aidé, merci de soutenir le développement :
 
 [![Sponsor Lygos](https://img.shields.io/badge/Sponsor-Lygos-blue?style=for-the-badge)](https://pay.lygosapp.com/$etsmeta)
-![Version](https://img.shields.io/badge/version-1.5.2011250429-blue)
+![Version](https://img.shields.io/badge/version-1.6.2812251812-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Stars](https://img.shields.io/github/stars/METADIDOMIOFFICIEL/Metadidomi-Builder?style=social)
 ![Issues](https://img.shields.io/github/issues/[METADIDOMIOFFICIEL/Metadidomi-BUILDER])
