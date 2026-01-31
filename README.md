@@ -89,6 +89,7 @@ Toutes les dépendances essentielles sont incluses dans `build_tools/vendor/` :
 
 ```
 build_tools/vendor/
+  ├── android/                 # Packaging pour les applications Android
   ├── asar/                    # Packaging et archivage
   ├── bytenode/                # Compilation JavaScript → bytecode V8
   ├── electron-asar/           # ASAR officiel Electron
