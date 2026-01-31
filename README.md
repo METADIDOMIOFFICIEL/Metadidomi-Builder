@@ -11,16 +11,16 @@
 Si ce builder vous a aidé, merci de soutenir le développement :
 
 [![Sponsor Lygos](https://img.shields.io/badge/Sponsor-Lygos-blue?style=for-the-badge)](https://pay.lygosapp.com/$etsmeta)
-![Version](https://img.shields.io/badge/version-1.6.2812251812-blue)
+![Version](https://img.shields.io/badge/version-1.7.3101261534-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Stars](https://img.shields.io/github/stars/METADIDOMIOFFICIEL/Metadidomi-Builder?style=social)
 ![Issues](https://img.shields.io/github/issues/[METADIDOMIOFFICIEL/Metadidomi-BUILDER])
 
 ---
-# �🚀 Multi-Builder Premium
+# 🚀 Multi-Builder Premium
 
 **Builder nouvelle génération** avec chiffrement de ressources, protection bytecode, obfuscation intelligente et prise en charge Python. 
-**Windows maintenant, macOS et Linux en développement.**
+**
 ---
 
 ## 📑 Table des Matières
@@ -31,18 +31,19 @@ Si ce builder vous a aidé, merci de soutenir le développement :
 4. **[Configuration](#-configuration)** - Personnalisation
 5. **[Modes de Construction](#-modes-de-construction)** - Options de build
 6. **[Gestion des Dépendances](#-gestion-des-dépendances)** - Electron et Python
-7. **[Protection du Code](#-système-de-protection-avancé)** - Sécurité
-8. **[Packaging Python](#-packaging-dapplications-python)** - Applications Python
-9. **[Packaging Android](#-packaging-dapplications-android)** - Applications Android APK
-10. **[Comparaison](#-comparaison-avec-electron-builder)** - vs electron-builder
-11. **[Roadmap](#-roadmap)** - Futures versions
-12. **[Support](#-support-et-contribution)** - Aide et contact
+7. **[Build APK Android](#-build-apk-android)** - Construction d'APK
+8. **[Protection du Code](#-système-de-protection-avancé)** - Sécurité
+9. **[Utilisation de jsMetadidomi](#-utilisation-de-jsmetadidomi)** - Protection JavaScript
+10. **[Packaging Python](#-packaging-dapplications-python)** - Applications Python
+11. **[Comparaison](#-comparaison-avec-electron-builder)** - vs electron-builder
+12. **[Roadmap](#-roadmap---vision-multi-plateforme)** - Futures versions
+13. **[Support](#-support-et-contribution)** - Aide et contact
 
 ---
 
 ## 💝 À Propos
 
-Constructeur **professionnel** pour applications Electron et Python, Android exigeant :
+Constructeur **professionnel** pour applications Electron et Python :
 - ✅ **Sécurité maximale** - Chiffrement AES-256, bytecode, obfuscation
 - ✅ **Builds reproductibles** - 100% déterministe et offline
 - ✅ **Customisation totale** - Contrôle complet du processus
@@ -74,7 +75,7 @@ npm install
 Si lors de l'installation le dossier `build_tools/vendor` n'est pas présent, suivez ces instructions :
 
 . Téléchargez le fichier `vendor.zip` depuis :
-  https://github.com/METADIDOMIOFFICIEL/Metadidomi-Builder/releases/download/1.3.171125/vendor.zip
+  https://github.com/METADIDOMIOFFICIEL/Metadidomi-Builder/releases/download/1.3.171125/vendor.zi
 
 En suite télécharger le kit Android:
 https://github.com/METADIDOMIOFFICIEL/Metadidomi-Builder/releases/download/Android.zip/android.zip
@@ -526,6 +527,68 @@ mon-app/
 - ✅ **Empaquetage ASAR récursif** - Tous les fichiers inclus à tous les niveaux
 - ✅ **Gestion Python** - Support applications Python standalone
 
+# 📱 Build APK Android
+
+Construisez facilement des applications Android APK avec le builder.
+
+### Démarrage Rapide
+```powershell
+# Depuis votre dossier d'application Android
+cd D:\mon-app-android
+node D:\chemin-vers\metadidomi-builder\build_tools\build_apk.js release
+
+# Résultat: ./app/build/outputs/apk/release/app-release.apk
+```
+
+### Commandes Disponibles (Direct)
+```powershell
+# Build debug (chemin complet)
+node D:\chemin-vers\metadidomi-builder\build_tools\build_apk.js debug
+
+# Build release (chemin complet)
+node D:\chemin-vers\metadidomi-builder\build_tools\build_apk.js release
+
+# Mode offline
+node D:\chemin-vers\metadidomi-builder\build_tools\build_apk.js release --offline
+
+# Nettoyer
+node D:\chemin-vers\metadidomi-builder\build_tools\build_apk.js clean
+```
+
+### Configuration npm (package.json)
+
+Créez ou modifiez votre `package.json` avec les scripts appropriés :
+
+```json
+{
+  "name": "mon-app-android",
+  "version": "1.0.0",
+  "description": "Application Android",
+  "scripts": {
+    "build:debug": "node node_modules/metadidomi-builder/build_tools/build_apk.js debug",
+    "build:release": "node node_modules/metadidomi-builder/build_tools/build_apk.js release",
+    "build:offline": "node node_modules/metadidomi-builder/build_tools/build_apk.js debug --offline",
+    "build:release:offline": "node node_modules/metadidomi-builder/build_tools/build_apk.js release --offline",
+    "clean": "node node_modules/metadidomi-builder/build_tools/build_apk.js clean"
+  }
+}
+```
+
+Puis exécutez :
+```powershell
+npm run build:release
+```
+
+### Fonctionnalités
+- ✅ Support Gradle automatique
+- ✅ Signature APK (debug et release)
+- ✅ ZipAlign optimisation
+- ✅ Génération AAB bundle
+- ✅ Mode offline complète
+- ✅ JDK et Android SDK vendorisés
+
+---
+
 # 🛡️ Système de Protection Avancé
 
 Le builder intègre un **système complet de protection du code** avec obfuscation intelligente, chiffrement multi-couches, et anti-analyse.
@@ -561,6 +624,58 @@ node build_tools/builder.js --heavy-protection
 ```
 
 👉 **[📖 Documentation complète des protections →](build_tools_py/PROTECTION_COMMANDS.md)**
+
+---
+
+## 🚀 Utilisation de jsMetadidomi
+
+**jsMetadidomi** est l'outil de protection JavaScript/HTML du builder. Il obfusque et chiffre votre code avec des couches de sécurité avancées.
+
+### Démarrage Rapide
+
+#### Protéger un Fichier Individuel
+```powershell
+# Protéger un fichier JavaScript
+node node_modules/metadidomi-builder/build_tools/jsMetadidomi/protect.js mon-script.js dossier-sortie light
+
+# Protéger un fichier HTML
+node node_modules/metadidomi-builder/build_tools/jsMetadidomi/protect.js page.html dossier-sortie light
+```
+
+#### Protéger un Dossier Complet
+```powershell
+# Protéger tous les fichiers d'un dossier
+node node_modules/metadidomi-builder/build_tools/jsMetadidomi/protect.js src protected-output medium
+```
+
+### Niveaux de Protection
+
+| Niveau | Description | Cas d'usage |
+|--------|-------------|-----------|
+| **light** | Obfuscation basique + loader | Développement, tests rapides |
+| **medium** | Obfuscation + anti-debug + dead code | Production standard |
+
+### Résultat de la Protection
+
+Une fois la protection complétée, vous obtenez :
+- 📄 **Fichiers protégés** - Code obfusqué et chiffré
+- 🔑 **jsloader.js** - Loader de déchiffrement (généré automatiquement)
+
+**⚠️ Important** : Distribuez le `jsloader.js` généré avec vos fichiers protégés. Le loader contient les clés et le bytecode nécessaires au déchiffrement.
+
+### Utilisation Programmatique
+
+```javascript
+const { obfuscateFile, obfuscateApp } = require('metadidomi-builder/build_tools/jsMetadidomi/jsMetadidomi.js');
+
+// Protéger un fichier
+obfuscateFile('mon-script.js', 'dossier-sortie', 'light', true);
+
+// Protéger un dossier
+obfuscateApp('src', 'protected-output', 'medium', true);
+```
+
+---
 
 ## Construction LITE (optimisation)
 ```powershell
@@ -1178,6 +1293,31 @@ AUTHOR = "Votre Entreprise"
 ENTRY = "__main__"
 ```
 
+### ⚠️ Point d'Entrée Unique (IMPORTANT)
+
+Le builder utilise **un seul point d'entrée**, celui défini dans la clé `ENTRY` de `config.py`.
+
+- ✅ **Seul le fichier défini dans `ENTRY`** sera utilisé comme point d'entrée principal
+- ❌ Les autres fichiers d'entrée potentiels (`main.py`, `app.py`, etc.) seront **ignorés et non embarqués** dans le launcher
+- 🔒 Cela garantit qu'il n'y a **aucune ambiguïté** sur le point d'entrée réel
+
+**Exemple :**
+```python
+# Si vous définissez dans config.py:
+ENTRY = "app_launcher"
+
+# Alors SEUL app_launcher.py sera utilisé comme point d'entrée
+# Les fichiers main.py, __main__.py, app.py seront complètement ignorés
+```
+
+**Comportement du builder :**
+1. Lit la clé `ENTRY` dans `config.py` 
+2. Cherche le fichier correspondant (ex: `app_launcher.py`)
+3. L'embarque dans le launcher compilé
+4. **Exclut tous les autres fichiers Python d'entrée** du payload
+
+Cela évite les conflits et les comportements imprévisibles dus à plusieurs points d'entrée.
+
 ### 📝 Exemple : __main__.py Minimal
 
 ```python
@@ -1285,6 +1425,43 @@ python builder.py --gui
 | `--gui` | Compiler en mode GUI (pas de console) | `--gui` |
 | `--no-pyc` | Ne pas compiler les .py en .pyc | `--no-pyc` |
 | `--key <clé>` | Clé de chiffrement personnalisée | `--key ma-clé` |
+| `--python-embed <chemin>` | Python embeddable personnalisé | `--python-embed D:\python-embed-amd64` |
+
+### 🐍 Utilisation d'un Python Embeddable Personnalisé
+
+Le paramètre `--python-embed` permet d'utiliser votre propre distribution Python embeddable au lieu de celle par défaut. Cela est utile pour :
+- ✅ Utiliser une version Python différente
+- ✅ Utiliser un Python pré-configuré avec vos dépendances
+- ✅ Optimiser la taille du package final
+- ✅ Builds reproductibles avec un Python maîtrisé
+
+**Utilisation :**
+
+```powershell
+# Utiliser un Python embeddable personnalisé
+python builder.py --python-embed D:\python-embed-amd64
+
+# Combiné avec d'autres paramètres
+python builder.py --app-src D:\mon-app --output D:\dist --python-embed D:\python-embed-amd64 --gui
+
+# Via variable d'environnement
+$env:PYTHON_EMBED = "D:\python-embed-amd64"
+python builder.py
+```
+
+**Structure attendue du dossier Python embeddable :**
+
+```
+python-embed-amd64/
+  ├── python.exe           ← Exécutable Python principal
+  ├── python311.dll        ← Librairie Python
+  ├── Lib/                 ← Librairies standard Python
+  ├── DLLs/                ← DLLs compilées
+  ├── Scripts/             ← Scripts exécutables
+  └── site-packages/       ← Packages tiers installés
+```
+
+**Important :** Assurez-vous que votre dossier Python embeddable contient tous les fichiers standards et que les dépendances requises sont installées dans `site-packages/`.
 
 ### 💾 Architecture du Packaging Python
 
@@ -1570,774 +1747,6 @@ choco install mingw
 Python Embeddable distribution not found
 ```
 **✅ SOLUTION:** Vérifiez le dossier `build_tools/vendor/python_embeddable/`
-
----
-# Metadidomi Crone - Générateur d'APK Android
-
-Une solution complète et automatisée pour créer des applications Android (APK) sans besoin de connaissances avancées en Android Studio.
-
-<a id="top"></a>
-
-## 📋 Table des matières
-
-- [Installation rapide](#installation-rapide)
-- [Structure d'un projet](#structure-dun-projet)
-- [Créer une nouvelle application](#créer-une-nouvelle-application)
-- [Configuration de l'application](#configuration-de-lapplication)
-- [Générer l'APK](#générer-lapk)
-- [Exemples](#exemples)
-- [Dépannage](#dépannage)
-- [Options avancées](#options-avancées)
-
----
-
-## Installation rapide
-
-🔝 [Retour en haut](#top)
-
-### Prérequis
-
-- **Node.js** (v14 ou supérieur) - [Télécharger](https://nodejs.org)
-- **PowerShell** (Windows) ou **Bash** (Mac/Linux)
-- **Python 3** (pour la génération d'icônes) - [Télécharger](https://www.python.org)
-- **Pillow** (PIL) pour Python : `pip install Pillow`
-
-### Vérifier l'installation
-
-```powershell
-node --version
-python --version
-npm --version
-```
-
-### Installation via npm (Recommandé)
-
-Installez metadidomi-builder comme dépendance locale dans votre projet :
-
-```powershell
-
-npm install metadidomi-builder
-```
-
-Créez un `package.json` à la racine de votre projet :
-
-```json
-{
-  "name": "mon-app-android",
-  "version": "1.0.0",
-    "scripts": {
-    "build": "node node_modules/metadidomi-builder/build_tools/build_apk.js .",
-    "build-debug": "node node_modules/metadidomi-builder/build_tools/build_apk.js . --fail-on-missing",
-    "build-restore": "node node_modules/metadidomi-builder/build_tools/build_apk.js . --restore",
-    "build-icons": "node node_modules/metadidomi-builder/build_tools/generate-icons.js ."
-  },
-  "keywords": [
-    "android",
-    "apk",
-    "builder"
-  ],
-  "author": "Metadidomi",
-  "license": "MIT",
-  "dependencies": {
-    "metadidomi-builder": "file:../metadidomi-builder",
-    "sharp": "^0.32.0"
-  }
-}
-```
-
-Puis installez et lancez le build :
-
-```powershell
-npm install
-npm run build
-```
-
----
-
-## Structure d'un projet
-
-🔝 [Retour en haut](#top)
-
-Chaque application Android doit suivre cette structure :
-
-```
-MonApp/
-├── app-config.json           # Configuration de l'app
-├── AndroidManifest.xml       # Déclaration Android (généré automatiquement)
-├── src/
-│   └── com/example/monapp/
-│       └── MainActivity.java  # Code Java principal
-├── res/
-│   ├── layout/
-│   │   └── activity_main.xml # Interface utilisateur
-│   ├── values/
-│   │   ├── strings.xml       # Textes et traductions
-│   │   ├── colors.xml        # Couleurs
-│   │   └── styles.xml        # Styles et thèmes
-│   ├── mipmap-hdpi/
-│   │   └── ic_launcher.png   # Icône de l'app (auto-générée)
-│   └── drawable/             # Images supplémentaires (optionnel)
-└── build/                     # Généré automatiquement (à ignorer)
-```
-
----
-
-## Créer une nouvelle application
-
-### Étape 1 : Créer la structure des dossiers
-
-🔝 [Retour en haut](#top)
-
-```powershell
-mkdir MonApp\src\com\example\monapp
-mkdir MonApp\res\layout
-mkdir MonApp\res\values
-mkdir MonApp\res\mipmap-hdpi
-```
-
-### Étape 2 : Créer `app-config.json`
-
-Ce fichier contient toutes les informations de votre application.
-
-```json
-{
-  "appName": "MonApp",
-  "appVersion": "1.0.0",
-  "appDescription": "Ma première application Android",
-  "packageName": "com.example.monapp",
-  "minSdkVersion": 21,
-  "targetSdkVersion": 34,
-  "colors": {
-    "primary": "#2196F3",
-    "primaryDark": "#1976D2",
-    "accent": "#FF5722"
-  }
-}
-```
-
-**Explications des paramètres :**
-- `appName` : Nom affiché de l'application
-- `appVersion` : Version sémantique (majeur.mineur.patch)
-- `packageName` : Identifiant unique (format domaine inversé)
-- `minSdkVersion` : Version Android minimale (21 = Android 5.0)
-- `targetSdkVersion` : Version Android ciblée (34 = Android 14)
-- `colors` : Couleurs principales (format hexadécimal)
-
-### Étape 3 : Créer l'interface (`activity_main.xml`)
-
-Fichier : `res/layout/activity_main.xml`
-
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:padding="16dp">
-
-    <TextView
-        android:id="@+id/titleText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bienvenue dans MonApp"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/myButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Appuyez-moi"
-        android:layout_marginTop="16dp" />
-
-</LinearLayout>
-```
-
-### Étape 4 : Créer les textes (`strings.xml`)
-
-Fichier : `res/values/strings.xml`
-
-```xml
-<resources>
-    <string name="app_name">MonApp</string>
-    <string name="app_version">1.0.0</string>
-    <string name="app_description">Ma première application</string>
-    <string name="hello_world">Bienvenue</string>
-    <string name="action_settings">Paramètres</string>
-    <string name="back">Retour</string>
-    <string name="forward">Suivant</string>
-    <string name="reload">Recharger</string>
-</resources>
-```
-
-### Étape 5 : Créer le code Java (`MainActivity.java`)
-
-Fichier : `src/com/example/monapp/MainActivity.java`
-
-```java
-package com.example.monapp;
-
-import android.app.Activity;
-import android.os.Bundle;
-import android.widget.Button;
-import android.widget.Toast;
-import android.view.View;
-import android.util.Log;
-
-public class MainActivity extends Activity {
-    private static final String TAG = "MonApp";
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Log.d(TAG, "MainActivity créée");
-
-        Button myButton = (Button) findViewById(R.id.myButton);
-        myButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Bouton cliqué!", Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "Bouton cliqué");
-            }
-        });
-    }
-}
-```
-
-### Étape 6 : Ajouter une icône
-
-Placez une image PNG (96x96 pixels) dans `res/mipmap/`.
-
-**Le système générera automatiquement les variantes pour tous les écrans.**
-
----
-
-## Configuration de l'application
-
-🔝 [Retour en haut](#top)
-
-### `app-config.json` complet
-
-```json
-{
-  "appName": "MonApp",
-  "appVersion": "1.0.0",
-  "appDescription": "Ma première application Android",
-  "packageName": "com.example.monapp",
-  "minSdkVersion": 21,
-  "targetSdkVersion": 34,
-  "colors": {
-    "primary": "#2196F3",
-    "primaryDark": "#1976D2",
-    "accent": "#FF5722"
-  },
-  "minimalRequiredFiles": [
-    "AndroidManifest.xml",
-    "res/values/strings.xml",
-    "res/values/styles.xml",
-    "res/layout/activity_main.xml"
-  ]
-}
-```
-
----
-
-## Générer l'APK
-
-🔝 [Retour en haut](#top)
-
-### Avec npm
-
-```powershell
-# Build standard
-npm run build
-
-# Build avec vérification stricte
-npm run build-debug
-
-# Générer les icônes
-npm run build-icons
-```
-
-### Sans sauvegarde
-
-```powershell
-node "metadidomi-builder\build_tools\build_apk.js" "MonApp" --no-backup
-```
-
-### Restaurer depuis une sauvegarde
-
-```powershell
-node "metadidomi-builder\build_tools\build_apk.js" "MonApp" --restore
-```
-
-### Résultat
-
-Après une génération réussie, vous trouverez :
-
-```
-MonApp/
-└── MonApp.apk  ← Votre application, prête à installer!
-```
-
-Fichier de sortie : `MonApp/MonApp.apk`
-
-**Taille typique :** 2-5 MB
-
----
-
-## Exemples
-
-🔝 [Retour en haut](#top)
-
-### Exemple 1 : Application Compteur
-
-Voir le dossier `CounterApp/` pour un exemple complet d'une application de compteur avec :
-- Boutons d'incrémentation/décrémentation
-- Affichage d'un compteur
-- Interface colorée
-
-### Exemple 2 : Application Simple
-
-Consultez `MyApp/` pour une application de base.
-
-### Exemple 3 : Application Avancée
-
-`MyApp_Advanced/` contient des fonctionnalités plus complexes.
-
----
-
-## Dépannage
-
-🔝 [Retour en haut](#top)
-
-### Erreur : "Aucun fichier Java trouvé"
-
-**Cause** : Le dossier `src/` est vide ou mal structuré.
-
-**Solution** :
-1. Vérifiez que `MainActivity.java` existe dans `src/com/example/monapp/`
-2. Vérifiez le nom du package (doit correspondre à `packageName` dans `app-config.json`)
-
-```
-src/
-└── com/example/monapp/
-    └── MainActivity.java  ✓ Correct
-```
-
-### Erreur : "resource string/... not found"
-
-**Cause** : Une chaîne de caractères référencée n'existe pas dans `strings.xml`.
-
-**Solution** :
-1. Ouvrez `res/values/strings.xml`
-2. Ajoutez la chaîne manquante avec son ID correct :
-   ```xml
-   <string name="fragment1">Fragments</string>
-   <string name="action_click">Cliquez ici</string>
-   ```
-3. **Assurez-vous que le nom correspond exactement** à celui utilisé dans votre layout XML
-
-**Exemple d'erreur rencontrée (CounterApp) :**
-```
-error: resource string/fragment1 not found
-```
-**Correction appliquée :**
-```xml
-<!-- res/values/strings.xml -->
-<resources>
-    <string name="app_name">CounterApp</string>
-    <string name="fragment1">Compteur</string>
-    <string name="increment">Incrémenter</string>
-    <string name="decrement">Décrémenter</string>
-    <string name="reset">Réinitialiser</string>
-</resources>
-```
-
-### Erreur : "cannot find symbol: variable R"
-
-**Cause** : Les ressources n'ont pas été compilées correctement.
-
-**Solution** :
-1. Supprimez le dossier `build/`
-2. Vérifiez que `res/values/strings.xml` est valide (XML bien formé, pas d'accents mal encodés)
-3. Relancez la génération complète
-
-### Erreur : "D8 compilation failed" avec "NullPointerException"
-
-**Cause** : Classes anonymes mal générées lors de la compilation DEX.
-
-**Symptômes** :
-```
-java.lang.NullPointerException: Cannot invoke "String.length()"
-Exception in thread "main" java.lang.NullPointerException
-```
-
-**Solution - Utilisez `implements View.OnClickListener` au lieu de classes anonymes** :
-
-❌ **INCORRECT (cause l'erreur D8)** :
-```java
-button.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        counter++;
-        updateDisplay();
-    }
-});
-```
-
-✅ **CORRECT** :
-```java
-public class MainActivity extends Activity implements View.OnClickListener {
-    private Button incrementBtn, decrementBtn;
-    
-    @Override
-    public void onClick(View v) {
-        int id = v.getId();
-        if (id == R.id.incrementBtn) counter++;
-        else if (id == R.id.decrementBtn) counter--;
-    }
-}
-```
-
-**Pourquoi** : D8 (compilateur DEX) a des problèmes avec les classes anonymes imbriquées. Les interfaces nommées sont plus fiables.
-
-### Erreur : "cannot find symbol: variable helloText" ou autre ID de ressource
-
-**Cause** : Le code Java référence un ID qui n'existe pas dans le layout XML.
-
-**Symptôme** :
-```
-error: cannot find symbol
-symbol: variable helloText
-location: class MainActivity
-```
-
-**Solution** :
-1. Vérifiez que l'ID existe dans `res/layout/activity_main.xml` :
-   ```xml
-   <TextView
-       android:id="@+id/helloText"
-       ...
-   />
-   ```
-2. Vérifiez que vous utilisez le bon nom en Java :
-   ```java
-   TextView helloText = (TextView) findViewById(R.id.helloText);
-   ```
-3. Assurez-vous que l'ID correspond EXACTEMENT (majuscules/minuscules)
-
-**Exemple de correction (CounterApp)** :
-```xml
-<!-- res/layout/activity_main.xml -->
-<LinearLayout ...>
-    <TextView
-        android:id="@+id/counterDisplay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="0"
-        android:textSize="72sp" />
-    
-    <Button
-        android:id="@+id/incrementBtn"
-        android:text="Incrémenter" />
-</LinearLayout>
-```
-
-### Erreur : "AndroidManifest.xml not found"
-
-**Cause** : Fichier de configuration critique manquant ou mal généré.
-
-**Solution** :
-1. Vérifiez que `app-config.json` existe à la racine du projet
-2. Assurez-vous que le JSON est valide (syntaxe correcte, pas de virgules manquantes)
-3. Relancez le build avec l'option `--fail-on-missing` pour diagnostiquer :
-   ```powershell
-   node "metadidomi-builder\build_tools\build_apk.js" "MonApp" --fail-on-missing
-   ```
-
-### Erreur : "Fichiers minimums manquants"
-
-**Cause** : Des fichiers essentiels n'existent pas.
-
-**Files requises minimales** :
-- `app-config.json` → Configuration de l'app
-- `AndroidManifest.xml` → Descripteur (généré automatiquement)
-- `res/values/strings.xml` → Textes
-- `res/values/styles.xml` → Styles (généré automatiquement)
-- `res/layout/activity_main.xml` → Interface utilisateur
-- `src/com/example/monapp/MainActivity.java` → Code principal
-
-**Solution** :
-```powershell
-# Mode diagnostique - affiche les fichiers manquants sans échouer
-node "metadidomi-builder\build_tools\build_apk.js" "MonApp"
-
-# Mode strict - échoue si des fichiers manquent
-node "metadidomi-builder\build_tools\build_apk.js" "MonApp" --fail-on-missing
-```
-
-### L'APK n'est pas généré
-
-**Cause** : Erreur lors de la signature ou de l'assemblage final.
-
-**Solution** :
-1. Supprimez le fichier `.keystore` dans le dossier du projet :
-   ```powershell
-   rm "MonApp\.keystore"
-   ```
-2. Relancez la génération (un nouveau keystore sera créé) :
-   ```powershell
-   node "metadidomi-builder\build_tools\build_apk.js" "MonApp"
-   ```
-
-### Erreur : "Invalid app-config.json"
-
-**Cause** : Fichier de configuration mal formé.
-
-**Vérifiez** :
-```json
-{
-  "appName": "MonApp",           // ✓ String valide
-  "appVersion": "1.0.0",        // ✓ Format sémantique (majeur.mineur.patch)
-  "packageName": "com.example.monapp",  // ✓ Format domaine inversé
-  "minSdkVersion": 21,          // ✓ Nombre entier >= 21
-  "targetSdkVersion": 34,       // ✓ Nombre entier
-  "colors": {
-    "primary": "#2196F3",       // ✓ Couleur hexadécimale valide
-    "primaryDark": "#1976D2",
-    "accent": "#FF5722"
-  }
-}
-```
-
-### Erreur : "Layout XML invalide"
-
-**Cause** : Syntaxe XML incorrecte dans `activity_main.xml`.
-
-**Vérifiez** :
-- Les balises ouvrantes et fermantes correspondent (`<LinearLayout>` ... `</LinearLayout>`)
-- Les attributs android: sont valides
-- Les IDs sont uniques et bien formatés (`android:id="@+id/monId"`)
-- Les textes spéciaux sont échappés (`&amp;`, `&lt;`, `&gt;`)
-
-**Exemple correct** :
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    
-    <Button
-        android:id="@+id/myButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cliquez-moi" />
-    
-</LinearLayout>
-```
-
-### Erreur : "Icônes manquantes"
-
-**Cause** : L'icône n'a pas été générée ou redimensionnée correctement.
-
-**Solution** :
-1. Placez une image PNG (96x96 pixels minimum) dans `res/drawable/` ou `res/mipmap/`
-2. Exécutez le générateur d'icônes :
-   ```powershell
-   node "metadidomi-builder\build_tools\generate-icons.js" "MonApp"
-   ```
-3. Vérifiez que tous les dossiers mipmap ont été créés :
-   ```
-   res/mipmap-mdpi/ic_launcher.png       (48x48)
-   res/mipmap-hdpi/ic_launcher.png       (72x72)
-   res/mipmap-xhdpi/ic_launcher.png      (96x96)
-   res/mipmap-xxhdpi/ic_launcher.png     (144x144)
-   res/mipmap-xxxhdpi/ic_launcher.png    (192x192)
-   ```
-
-### Erreur : "Package name already exists"
-
-**Cause** : Un package Android avec le même nom est déjà installé.
-
-**Solution** :
-1. Changez le `packageName` dans `app-config.json` :
-   ```json
-   "packageName": "com.example.monapp.v2"
-   ```
-2. Régénérez l'APK
-3. Ou : désinstallez l'ancienne app avant d'installer la nouvelle
-
----
-
-## Options avancées
-
-🔝 [Retour en haut](#top)
-
-### Personnaliser les ressources générées automatiquement
-
-Par défaut, le système génère :
-- `AndroidManifest.xml` (descripteur de l'app)
-- `res/values/colors.xml` (couleurs)
-- `res/values/styles.xml` (thèmes)
-
-Ces fichiers sont générés à chaque build. Pour les personnaliser, créez-les manuellement et le système les préservera.
-
-### Ajouter des ressources personnalisées
-
-```
-res/
-├── drawable/           # Images 1x (160 DPI)
-├── drawable-hdpi/      # Images 1.5x (240 DPI)
-├── drawable-xhdpi/     # Images 2x (320 DPI)
-├── drawable-xxhdpi/    # Images 3x (480 DPI)
-├── drawable-xxxhdpi/   # Images 4x (640 DPI)
-├── font/               # Polices personnalisées
-├── menu/               # Menus
-├── raw/                # Fichiers non compressés
-└── anim/               # Animations
-```
-
-### Générer les icônes automatiquement
-
-Placez une image source dans `res/drawable/` ou `res/mipmap/` :
-
-```powershell
-node "metadidomi-builder\build_tools\generate-icons.js" "MonApp"
-```
-
-Le système créera automatiquement les variantes pour tous les écrans :
-- `mipmap-mdpi` (48×48)
-- `mipmap-hdpi` (72×72)
-- `mipmap-xhdpi` (96×96)
-- `mipmap-xxhdpi` (144×144)
-- `mipmap-xxxhdpi` (192×192)
-
-### Utiliser des variables d'environnement
-
-```powershell
-$env:PROJECT_PATH = "C:\MonApp"
-node "metadidomi-builder\build_tools\build_apk.js"
-```
-
----
-
-## Architecture du système
-
-🔝 [Retour en haut](#top)
-
-```
-metadidomi-builder/
-├── build_tools/
-│   ├── build_apk.js              # Orchestration principale
-│   ├── generate-resources.js     # Génération des ressources XML
-│   ├── generate-icons.js         # Redimensionnement des icônes
-│   ├── backup-manager.js         # Gestion des sauvegardes
-│   └── vendor/                   # SDK Android et JDK (inclus)
-└── build_tools_py/               # Outils Python avancés (optionnel)
-```
-
----
-
-## Étapes du build expliquées
-
-🔝 [Retour en haut](#top)
-
-1. **Génération des ressources** : Crée `AndroidManifest.xml`, couleurs, styles
-2. **Génération des icônes** : Redimensionne l'icône pour toutes les densités
-3. **Vérification des fichiers** : Contrôle la présence des fichiers minimums
-4. **Compilation des ressources** : AAPT2 compile XML et images
-5. **Liaison des ressources** : Génération de `R.java` avec les IDs de ressources
-6. **Compilation Java** : Javac compile le code Java
-7. **Création du JAR** : Empaquetage des classes Java
-8. **Conversion DEX** : D8 convertit en format Android (DEX)
-9. **Assemblage APK** : Création de la structure APK
-10. **Alignement** : Zipalign optimise la structure APK
-11. **Signature** : Signature numérique de l'APK
-12. **Résultat** : APK prête à être installée
-
----
-
-## Installation de l'APK sur un téléphone
-
-🔝 [Retour en haut](#top)
-
-### Via USB
-
-```powershell
-adb install -r "MonApp\MonApp.apk"
-```
-
-### Via partage de fichier
-
-1. Transférez le fichier `.apk` sur votre téléphone
-2. Ouvrez l'explorateur de fichiers
-3. Appuyez sur le fichier `.apk`
-4. Confirmez l'installation
-
----
-
-## Conseils et bonnes pratiques
-
-🔝 [Retour en haut](#top)
-
-✅ **À faire :**
-- Tester l'app fréquemment
-- Utiliser des noms de ressources explicites
-- Commenter le code Java
-- Utiliser `Log.d()` pour déboguer
-- Versionner votre code (Git)
-
-❌ **À éviter :**
-- Charger des images trop volumineuses
-- Utiliser des classes anonymes complexes
-- Modifier les fichiers générés automatiquement
-- Laisser des ressources inutilisées
-
----
-
-## Foire aux questions
-
-🔝 [Retour en haut](#top)
-
-**Q : Puis-je créer plusieurs activités ?**
-A : Oui, ajoutez des classes Java dans `src/` et déclarez-les dans `AndroidManifest.xml`.
-
-**Q : Comment ajouter des dépendances externes ?**
-A : Actuellement, seules les APIs Android intégrées sont supportées.
-
-**Q : L'APK fonctionne-t-il sur tous les téléphones ?**
-A : Oui, tant qu'ils sont Android 5.0 (API 21) ou supérieur.
-
-**Q : Puis-je mettre à jour l'APK ?**
-A : Oui, augmentez `appVersion` dans `app-config.json` et régénérez.
-
-**Q : Les APK sont-elles vraiment signées ?**
-A : Oui, automatiquement avec une clé de développement auto-générée.
-
----
-
-## Support
-
-🔝 [Retour en haut](#top)
-
-Pour des problèmes ou des questions :
-
-1. Consultez le dossier `CounterApp/` pour un exemple complet
-2. Vérifiez les logs du build pour les erreurs
-3. Assurez-vous que tous les fichiers requis existent
-
----
-
-## Version
-
-- **Metadidomi Crone** : v1.0.0
-- **Android SDK** : 34 (Android 14)
-- **Build Tools** : 34.0.0
-- **Dernière mise à jour** : Novembre 2025
 
 ---
 
