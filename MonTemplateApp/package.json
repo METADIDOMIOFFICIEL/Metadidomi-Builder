@@ -1,0 +1,20 @@
+{
+  "name": "MonTemplateApp",
+  "version": "1.0.0",
+  "description": "Un modèle d'application Android moderne avec Kotlin et Jetpack Compose",
+  "scripts": {
+    "build:debug": "node node_modules/metadidomi-builder/build_tools/build_apk.js debug",
+    "build:release": "node node_modules/metadidomi-builder/build_tools/build_apk.js release",
+    "build:offline": "node node_modules/metadidomi-builder/build_tools/build_apk.js debug --offline",
+    "build:release:offline": "node node_modules/metadidomi-builder/build_tools/build_apk.js release --offline",
+    "clean": "node node_modules/metadidomi-builder/build_tools/build_apk.js clean"
+  },
+  "keywords": [
+    "android",
+    "kotlin",
+    "jetpack-compose",
+    "gradle"
+  ],
+  "author": "",
+  "license": "MIT"
+}
